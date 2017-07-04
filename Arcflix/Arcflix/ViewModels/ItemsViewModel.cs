@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Net.TMDb;
 using System.Threading.Tasks;
 
@@ -34,8 +36,13 @@ namespace Arcflix.ViewModels
         public async Task LoadMore()
         {
             ++_pageIndex;
-            var itens = await DataStore.GetItemsAsync(true,_pageIndex);
-            Items.AddRange(itens);
+            var itens = await DataStore.GetItemsAsync(true, _pageIndex);
+            if (itens != null)
+            {
+                var enumerable = itens as Movie[] ?? itens.ToArray();
+                if (enumerable.Any())
+                    Items.AddRange(enumerable);
+            }
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -48,6 +55,7 @@ namespace Arcflix.ViewModels
             try
             {
                 Items.Clear();
+                _pageIndex = 1;
                 var items = await DataStore.GetItemsAsync(true);
                 Items.ReplaceRange(items);
             }
