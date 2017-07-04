@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.TMDb;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Arcflix.Models;
@@ -10,53 +12,53 @@ using Xamarin.Forms;
 [assembly: Dependency(typeof(Arcflix.Services.MockDataStore))]
 namespace Arcflix.Services
 {
-    public class MockDataStore : IDataStore<Item>
+    public class MockDataStore : IDataStore<Movie>
     {
-        bool isInitialized;
-        List<Item> items;
-
-        public async Task<bool> AddItemAsync(Item item)
+        private bool isInitialized;
+        private List<Movie> Movies;
+        private ServiceClient _clientTMDb;
+        public async Task<bool> AddItemAsync(Movie item)
         {
             await InitializeAsync();
 
-            items.Add(item);
+            Movies.Add(item);
 
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> UpdateItemAsync(Item item)
+        public async Task<bool> UpdateItemAsync(Movie item)
         {
             await InitializeAsync();
 
-            var _item = items.Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
-            items.Remove(_item);
-            items.Add(item);
+            var movie = Movies.FirstOrDefault(arg => arg.Id == item.Id);
+            Movies.Remove(movie);
+            Movies.Add(item);
 
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> DeleteItemAsync(Item item)
+        public async Task<bool> DeleteItemAsync(Movie item)
         {
             await InitializeAsync();
 
-            var _item = items.Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
-            items.Remove(_item);
+            var movie = Movies.FirstOrDefault(arg => arg.Id == item.Id);
+            Movies.Remove(movie);
 
             return await Task.FromResult(true);
         }
-
-        public async Task<Item> GetItemAsync(string id)
+        
+        public async Task<Movie> GetItemAsync(int id)
         {
             await InitializeAsync();
 
-            return await Task.FromResult(items.FirstOrDefault(s => s.Id == id));
+            return await Task.FromResult(Movies.FirstOrDefault(s => s.Id == id));
         }
 
-        public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Movie>> GetItemsAsync(bool forceRefresh = false)
         {
             await InitializeAsync();
 
-            return await Task.FromResult(items);
+            return await Task.FromResult(Movies);
         }
 
         public Task<bool> PullLatestAsync()
@@ -75,23 +77,17 @@ namespace Arcflix.Services
             if (isInitialized)
                 return;
 
-            items = new List<Item>();
-            var _items = new List<Item>
-            {
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Buy some cat food", Description="The cats are hungry"},
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Learn F#", Description="Seems like a functional idea"},
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Learn to play guitar", Description="Noted"},
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Buy some new candles", Description="Pine and cranberry for that winter feel"},
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Complete holiday shopping", Description="Keep it a secret!"},
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Finish a todo list", Description="Done"},
-            };
+            Movies = new List<Movie>();
+            _clientTMDb = _clientTMDb ?? new ServiceClient("1f54bd990f1cdfb230adb312546d765d");
+            Movies movies = await _clientTMDb.Movies.GetUpcomingAsync("en-US", 1,new CancellationToken());
 
-            foreach (Item item in _items)
+            foreach (Movie movie in movies.Results)
             {
-                items.Add(item);
+                Movies.Add(movie);
             }
 
             isInitialized = true;
         }
+        
     }
 }

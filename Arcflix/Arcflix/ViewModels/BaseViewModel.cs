@@ -1,4 +1,5 @@
-﻿using Arcflix.Helpers;
+﻿using System.Net.TMDb;
+using Arcflix.Helpers;
 using Arcflix.Models;
 using Arcflix.Services;
 
@@ -11,7 +12,7 @@ namespace Arcflix.ViewModels
         /// <summary>
         /// Get the azure service instance
         /// </summary>
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        public IDataStore<Movie> DataStore => DependencyService.Get<IDataStore<Movie>>();
 
         bool isBusy = false;
         public bool IsBusy
