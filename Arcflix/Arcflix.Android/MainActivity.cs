@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using ImageCircle.Forms.Plugin.Droid;
 
 namespace Arcflix.Droid
 {
@@ -15,6 +16,10 @@ namespace Arcflix.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            Plugin.Iconize.Iconize.With(new Plugin.Iconize.Fonts.FontAwesomeModule());
+            FormsPlugin.Iconize.Droid.IconControls.Init();
+
+            ImageCircleRenderer.Init();
 
             LoadApplication(new App());
         }

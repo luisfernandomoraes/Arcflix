@@ -17,22 +17,29 @@ namespace Arcflix
 
         public static void SetMainPage()
         {
-            Current.MainPage = new TabbedPage
+            Current.MainPage = new MasterDetailPage()
             {
-                Children =
-                {
-                    new NavigationPage(new ItemsPage())
-                    {
-                        Title = "Browse",
-                        Icon = Device.OnPlatform("tab_feed.png",null,null)
-                    },
-                    new NavigationPage(new AboutPage())
-                    {
-                        Title = "About",
-                        Icon = Device.OnPlatform("tab_about.png",null,null)
-                    },
-                }
+                Master = new MasterPage() { Title = "Main Page" },
+                Detail = new NavigationPage(new ItemsPage())
             };
+
+
+            //Current.MainPage = new TabbedPage
+            //{
+            //    Children =
+            //    {
+            //        new NavigationPage(new ItemsPage())
+            //        {
+            //            Title = "Browse",
+            //            Icon = Device.OnPlatform("tab_feed.png",null,null)
+            //        },
+            //        new NavigationPage(new AboutPage())
+            //        {
+            //            Title = "About",
+            //            Icon = Device.OnPlatform("tab_about.png",null,null)
+            //        },
+            //    }
+            //};
         }
     }
 }
