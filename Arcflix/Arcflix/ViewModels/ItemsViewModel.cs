@@ -15,11 +15,12 @@ namespace Arcflix.ViewModels
     {
         public ObservableRangeCollection<Movie> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
-
+        private int _pageIndex;
         public ItemsViewModel()
         {
-            Title = "Browse";
+            Title = "Upcoming Movies";
             Items = new ObservableRangeCollection<Movie>();
+            _pageIndex = 1;
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
             MessagingCenter.Subscribe<NewItemPage, Movie>(this, "AddItem", async (obj, item) =>
@@ -28,6 +29,13 @@ namespace Arcflix.ViewModels
                 Items.Add(_item);
                 await DataStore.AddItemAsync(_item);
             });
+        }
+
+        public async Task LoadMore()
+        {
+            ++_pageIndex;
+            var itens = await DataStore.GetItemsAsync(true,_pageIndex);
+            Items.AddRange(itens);
         }
 
         async Task ExecuteLoadItemsCommand()

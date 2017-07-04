@@ -6,7 +6,8 @@
     x:Name="BrowseItemsPage"
     Title="{Binding Title}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Clicked="AddItem_Clicked" Text="Add Item" />
+        <!--<ToolbarItem Clicked="AddItem_Clicked" Text="Add Item" />-->
+        <ToolbarItem Icon="search_icon.png" Text="Add Item" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
@@ -16,9 +17,9 @@
                 HasUnevenRows="true"
                 IsPullToRefreshEnabled="true"
                 IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                ItemAppearing="ItemsListView_OnItemAppearing"
                 ItemSelected="OnItemSelected"
                 ItemsSource="{Binding Items}"
-                RefreshCommand="{Binding LoadItemsCommand}"
                 VerticalOptions="FillAndExpand">
                 <ListView.ItemTemplate>
                     <DataTemplate>

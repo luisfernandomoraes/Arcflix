@@ -46,7 +46,7 @@ namespace Arcflix.Services
 
             return await Task.FromResult(true);
         }
-        
+
         public async Task<Movie> GetItemAsync(int id)
         {
             await InitializeAsync();
@@ -54,9 +54,12 @@ namespace Arcflix.Services
             return await Task.FromResult(Movies.FirstOrDefault(s => s.Id == id));
         }
 
-        public async Task<IEnumerable<Movie>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Movie>> GetItemsAsync(bool forceRefresh = false, int pageIndex = 1)
         {
-            await InitializeAsync();
+            if (!isInitialized)
+                await InitializeAsync();
+            else
+                await GetItemsByPage(pageIndex);
 
             return await Task.FromResult(Movies);
         }
@@ -78,16 +81,20 @@ namespace Arcflix.Services
                 return;
 
             Movies = new List<Movie>();
+            await GetItemsByPage();
+
+            isInitialized = true;
+        }
+
+        private async Task GetItemsByPage(int index = 1)
+        {
             _clientTMDb = _clientTMDb ?? new ServiceClient("1f54bd990f1cdfb230adb312546d765d");
-            Movies movies = await _clientTMDb.Movies.GetUpcomingAsync("en-US", 1,new CancellationToken());
+            Movies movies = await _clientTMDb.Movies.GetUpcomingAsync("en-US", index, new CancellationToken());
 
             foreach (Movie movie in movies.Results)
             {
                 Movies.Add(movie);
             }
-
-            isInitialized = true;
         }
-        
     }
 }

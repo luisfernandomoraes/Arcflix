@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections;
 using Arcflix.Models;
 using Arcflix.ViewModels;
 
@@ -41,6 +41,15 @@ namespace Arcflix.Views
 
             if (_viewModel.Items.Count == 0)
                 _viewModel.LoadItemsCommand.Execute(null);
+        }
+
+        private async void ItemsListView_OnItemAppearing(object sender, ItemVisibilityEventArgs e)
+        {
+            var items = this.ItemsListView.ItemsSource as IList;
+            if (items != null && e.Item == _viewModel.Items[items.Count - 1])
+            {
+                await _viewModel.LoadMore();
+            }
         }
     }
 }

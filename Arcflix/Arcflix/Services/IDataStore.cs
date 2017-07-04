@@ -9,7 +9,7 @@ namespace Arcflix.Services
         Task<bool> UpdateItemAsync(T item);
         Task<bool> DeleteItemAsync(T item);
         Task<T> GetItemAsync(int id);
-        Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false);
+        Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false, int pageIndex = 1);
 
         Task InitializeAsync();
         Task<bool> PullLatestAsync();
