@@ -20,6 +20,7 @@
                 ItemAppearing="ItemsListView_OnItemAppearing"
                 ItemSelected="OnItemSelected"
                 ItemsSource="{Binding Items}"
+                RefreshCommand="{Binding LoadItemsCommand}"
                 VerticalOptions="FillAndExpand">
                 <ListView.ItemTemplate>
                     <DataTemplate>
