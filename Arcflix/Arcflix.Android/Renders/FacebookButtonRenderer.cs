@@ -70,8 +70,6 @@ namespace Arcflix.Droid.Renders
                             {
                                 App.Current.ShowMainPage();
                                 //var createUserViewModel = new CreateUserViewModel();
-                                //createUserViewModel.AcceptsToReceiveNotifications = true;
-
 
                                 //var obj = JObject.Parse(response.RawResponse);
                                 //var id = obj["id"].ToString().Replace("\"", "");
