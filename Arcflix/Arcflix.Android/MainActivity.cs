@@ -2,6 +2,7 @@
 using Android.Content.PM;
 using Android.OS;
 using ImageCircle.Forms.Plugin.Droid;
+using Plugin.Toasts;
 
 namespace Arcflix.Droid
 {
@@ -18,7 +19,7 @@ namespace Arcflix.Droid
             global::Xamarin.Forms.Forms.Init(this, bundle);
             Plugin.Iconize.Iconize.With(new Plugin.Iconize.Fonts.FontAwesomeModule());
             FormsPlugin.Iconize.Droid.IconControls.Init();
-
+            ToastNotificatorImplementation.Init(this);
             ImageCircleRenderer.Init();
 
             LoadApplication(new App());

@@ -1,4 +1,5 @@
-﻿using Arcflix.Views;
+﻿using Arcflix.Services;
+using Arcflix.Views;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -6,13 +7,13 @@ using Xamarin.Forms.Xaml;
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Arcflix
 {
-    public partial class App : Application
+    public partial class App : Application,ILoginManager
     {
         public App()
         {
             InitializeComponent();
 
-            SetMainPage();
+            Current.MainPage = new NavigationPage(new LoginModalPage(this) { Title = "User Login" });
         }
 
         public static void SetMainPage()
@@ -22,24 +23,16 @@ namespace Arcflix
                 Master = new MasterPage() { Title = "Main Page" },
                 Detail = new NavigationPage(new ItemsPage())
             };
+        }
 
+        public void ShowMainPage()
+        {
+            SetMainPage();
+        }
 
-            //Current.MainPage = new TabbedPage
-            //{
-            //    Children =
-            //    {
-            //        new NavigationPage(new ItemsPage())
-            //        {
-            //            Title = "Browse",
-            //            Icon = Device.OnPlatform("tab_feed.png",null,null)
-            //        },
-            //        new NavigationPage(new AboutPage())
-            //        {
-            //            Title = "About",
-            //            Icon = Device.OnPlatform("tab_about.png",null,null)
-            //        },
-            //    }
-            //};
+        public void Logout()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
