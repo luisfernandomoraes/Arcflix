@@ -2,24 +2,33 @@
 <ContentPage
     x:Class="Arcflix.Views.LoginPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:Arcflix.Controls;assembly=Arcflix">
     <ContentPage.Content>
-        <StackLayout Padding="15" HorizontalOptions="FillAndExpand">
+        <StackLayout
+            Padding="15"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
             <Image
                 Aspect="AspectFit"
                 HorizontalOptions="Center"
-                Source="header.png" />
-            <Entry Placeholder="Usuário" Text="{Binding UserName}" />
-            <Entry
-                IsPassword="True"
-                Placeholder="Senha"
-                Text="{Binding Password}" />
+                Source="logo_dark.png" />
+            <controls:FacebookButton
+                Margin="0,15,0,0"
+                BackgroundColor="#3D598A"
+                Command="{Binding LoginFBCommand}"
+                HeightRequest="35"
+                IsVisible="{Binding IsVisibleBtnFB}"
+                Text="Login with Facebook"
+                TextColor="White"
+                VerticalOptions="Center" />
             <Button
                 Margin="0,15,0,0"
-                BackgroundColor="#FF6ED526"
-                Command="{Binding LoginCommand}"
+                BackgroundColor="Transparent"
+                Command="{Binding LoginWithoutFacebookCommand}"
                 Text="Login"
-                TextColor="White" />
+                TextColor="Black"
+                VerticalOptions="Center" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

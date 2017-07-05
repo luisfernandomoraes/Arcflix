@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.companyname.Arcflix" android:versionCode="1" android:versionName="1.0">
 	<uses-sdk android:minSdkVersion="15" />
-  <application android:label="@string/app_name" android:icon="@drawable/icon"></application>
+  <uses-permission android:name="android.permission.INTERNET" />
+  <provider android:authorities="com.facebook.app.FacebookContentProvider1911623009061765"
+            android:name="com.facebook.FacebookContentProvider" 
+            android:exported="true" />
+  <activity android:name="com.facebook.FacebookActivity" 
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation" 
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:label="ScannPrice" />
+  <application android:label="@string/app_name" android:icon="@drawable/icon">
+    <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id" />
+    <activity android:name="com.facebook.FacebookActivity" android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:label="@string/app_name" />
+  </application>
 </manifest>
