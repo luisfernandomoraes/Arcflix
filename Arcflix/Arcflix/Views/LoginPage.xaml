@@ -11,7 +11,7 @@
             VerticalOptions="FillAndExpand">
             <Image
                 Aspect="AspectFit"
-                HorizontalOptions="Start"
+                HorizontalOptions="Center"
                 Source="logo_dark.png"
                 VerticalOptions="Center" />
             <StackLayout VerticalOptions="CenterAndExpand">
@@ -19,7 +19,7 @@
                     Margin="0,15,0,0"
                     BackgroundColor="#3D598A"
                     Command="{Binding LoginFBCommand}"
-                    HeightRequest="35"
+                    HeightRequest="36"
                     IsVisible="{Binding IsVisibleBtnFB}"
                     Text="Login with Facebook"
                     TextColor="White" />
@@ -27,7 +27,7 @@
                     Margin="0,15,0,0"
                     BackgroundColor="Transparent"
                     Command="{Binding LoginWithoutFacebookCommand}"
-                    Text="Login"
+                    Text="Skip login"
                     TextColor="Black" />
             </StackLayout>
         </StackLayout>
