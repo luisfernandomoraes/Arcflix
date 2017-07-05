@@ -11,24 +11,25 @@
             VerticalOptions="FillAndExpand">
             <Image
                 Aspect="AspectFit"
-                HorizontalOptions="Center"
-                Source="logo_dark.png" />
-            <controls:FacebookButton
-                Margin="0,15,0,0"
-                BackgroundColor="#3D598A"
-                Command="{Binding LoginFBCommand}"
-                HeightRequest="35"
-                IsVisible="{Binding IsVisibleBtnFB}"
-                Text="Login with Facebook"
-                TextColor="White"
+                HorizontalOptions="Start"
+                Source="logo_dark.png"
                 VerticalOptions="Center" />
-            <Button
-                Margin="0,15,0,0"
-                BackgroundColor="Transparent"
-                Command="{Binding LoginWithoutFacebookCommand}"
-                Text="Login"
-                TextColor="Black"
-                VerticalOptions="Center" />
+            <StackLayout VerticalOptions="CenterAndExpand">
+                <controls:FacebookButton
+                    Margin="0,15,0,0"
+                    BackgroundColor="#3D598A"
+                    Command="{Binding LoginFBCommand}"
+                    HeightRequest="35"
+                    IsVisible="{Binding IsVisibleBtnFB}"
+                    Text="Login with Facebook"
+                    TextColor="White" />
+                <Button
+                    Margin="0,15,0,0"
+                    BackgroundColor="Transparent"
+                    Command="{Binding LoginWithoutFacebookCommand}"
+                    Text="Login"
+                    TextColor="Black" />
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
