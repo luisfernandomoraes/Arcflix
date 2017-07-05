@@ -9,10 +9,10 @@ using Arcflix.Models;
 
 using Xamarin.Forms;
 
-[assembly: Dependency(typeof(Arcflix.Services.MockDataStore))]
+[assembly: Dependency(typeof(Arcflix.Services.MovieDataStore))]
 namespace Arcflix.Services
 {
-    public class MockDataStore : IDataStore<Movie>
+    public class MovieDataStore : IDataStore<Movie>
     {
         private bool isInitialized;
         private List<Movie> Movies;

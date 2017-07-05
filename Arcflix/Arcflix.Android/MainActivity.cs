@@ -3,9 +3,12 @@ using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
+using Android.Util;
 using ImageCircle.Forms.Plugin.Droid;
+using Java.Security;
 using Plugin.Toasts;
 using Xamarin.Facebook;
+using Signature = Android.Content.PM.Signature;
 
 namespace Arcflix.Droid
 {
@@ -21,7 +24,30 @@ namespace Arcflix.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             MainActivityInstance = this;
+
+#if DEBUG //Show fb debug hash
+
+            // Add code to print out the key hash
+            try
+            {
+                PackageInfo info = PackageManager.GetPackageInfo("com.companyname.Arcflix", PackageInfoFlags.Signatures);
+                foreach (Signature signature in info.Signatures)
+                {
+                    MessageDigest md = MessageDigest.GetInstance("SHA");
+                    md.Update(signature.ToByteArray());
+                    System.Diagnostics.Debug.WriteLine("KeyHash:", Base64.EncodeToString(md.Digest(), Base64.Default));
+                }
+            }
+            catch (PackageManager.NameNotFoundException e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+            }
+            catch (NoSuchAlgorithmException e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+            }
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+#endif
 
             base.OnCreate(bundle);
 

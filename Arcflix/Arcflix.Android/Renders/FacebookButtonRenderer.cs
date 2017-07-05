@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using Android.Telephony;
+using Android.Widget;
 using Arcflix.Controls;
 using Arcflix.Droid.Renders;
 using Plugin.Toasts;
@@ -67,6 +68,7 @@ namespace Arcflix.Droid.Renders
                             }
                             try
                             {
+                                App.Current.ShowMainPage();
                                 //var createUserViewModel = new CreateUserViewModel();
                                 //createUserViewModel.AcceptsToReceiveNotifications = true;
 
@@ -140,7 +142,7 @@ namespace Arcflix.Droid.Renders
                             }
                         };
 
-                        var request = new GraphRequest(AccessToken.CurrentAccessToken, "/me?fields=email,birthday,name,gender,link", null, HttpMethod.Get, graphCallBack, "v2.9");
+                        var request = new GraphRequest(AccessToken.CurrentAccessToken, "/me?fields=name,gender,link", null, HttpMethod.Get, graphCallBack, "v2.9");
 
 
                         try
