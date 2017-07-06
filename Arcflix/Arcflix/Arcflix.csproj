@@ -38,6 +38,11 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ChillPlayer\ImageResourceExtension.cs" />
+    <Compile Include="Controls\ChillPlayer\VideoResourceExtension.cs" />
+    <Compile Include="Controls\ChillPlayer\VimeoVideo.cs" />
+    <Compile Include="Controls\ChillPlayer\VimeoVideoIdExtension.cs" />
+    <Compile Include="Controls\ChillPlayer\YouTubeVideoIdExtension.cs" />
     <Compile Include="Controls\FacebookButton.cs" />
     <Compile Include="Helpers\MessengingCenterAlert.cs" />
     <Compile Include="Helpers\ObservableObject.cs" />
