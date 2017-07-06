@@ -38,7 +38,7 @@ namespace Arcflix
         {
             IsLoggedIn = Properties.ContainsKey(nameof(IsLoggedIn)) && Convert.ToBoolean(Properties[nameof(IsLoggedIn)]);
             if (!IsLoggedIn)
-                Current.MainPage = new NavigationPage(new LoginModalPage(this) { Title = "User Login" });
+                Current.MainPage = new LoginModalPage(this) { Title = "User Login" };
             else
                 Current.MainPage = new MasterDetailPage()
                 {

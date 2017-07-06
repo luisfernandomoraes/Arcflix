@@ -3,9 +3,10 @@
     x:Class="Arcflix.Views.LoginPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:chillPlayer="clr-namespace:Arcflix.Controls.ChillPlayer;assembly=Arcflix"
+    xmlns:controls="clr-namespace:Arcflix.Controls;assembly=Arcflix"
     xmlns:o="clr-namespace:Octane.Xam.VideoPlayer;assembly=Octane.Xam.VideoPlayer"
-    xmlns:me="clr-namespace:ChillPlayer.MarkupExtensions;assembly=ChillPlayer"
-    xmlns:controls="clr-namespace:Arcflix.Controls;assembly=Arcflix">
+    Style="{StaticResource PageBaseStyle}">
     <RelativeLayout x:Name="MainMenuLayout">
 
         <o:VideoPlayer
@@ -18,12 +19,12 @@
             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
                                                                   Property=Width}"
             Repeat="True"
-            Source="{me:VideoResource snow.mp4}"
+            Source="{chillPlayer:VideoResource video.mp4}"
             Volume="0" />
 
         <BoxView
             BackgroundColor="#E06A00"
-            Opacity=".75"
+            Opacity=".45"
             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
                                                                    Property=Height}"
             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
@@ -45,7 +46,7 @@
             <StackLayout.Padding>
                 <OnPlatform x:TypeArguments="Thickness">
                     <OnPlatform.iOS>20, 50, 20, 20</OnPlatform.iOS>
-                    <OnPlatform.Android>20, 50, 20, 20</OnPlatform.Android>
+                    <OnPlatform.Android>5, 5, 5, 5</OnPlatform.Android>
                     <OnPlatform.WinPhone>20, 50, 20, 20</OnPlatform.WinPhone>
                 </OnPlatform>
             </StackLayout.Padding>
@@ -55,10 +56,12 @@
                 Command="{Binding LoginFBCommand}"
                 HeightRequest="36"
                 IsVisible="{Binding IsVisibleBtnFB}"
+                HorizontalOptions="FillAndExpand"
                 Text="Login with Facebook"
                 TextColor="White" />
             <Button
                 Margin="0,15,0,0"
+                HorizontalOptions="FillAndExpand"
                 BackgroundColor="Transparent"
                 Command="{Binding LoginWithoutFacebookCommand}"
                 Text="Skip login"

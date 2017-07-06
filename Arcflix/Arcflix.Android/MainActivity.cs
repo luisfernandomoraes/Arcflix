@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Security.Cryptography;
+using System.Text;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -6,8 +8,10 @@ using Android.OS;
 using Android.Util;
 using ImageCircle.Forms.Plugin.Droid;
 using Java.Security;
+using Octane.Xam.VideoPlayer.Android;
 using Plugin.Toasts;
 using Xamarin.Facebook;
+using Xamarin.Forms;
 using Signature = Android.Content.PM.Signature;
 
 namespace Arcflix.Droid
@@ -57,7 +61,7 @@ namespace Arcflix.Droid
             CallbackManager = CallbackManagerFactory.Create();
             ToastNotificatorImplementation.Init(this);
             ImageCircleRenderer.Init();
-
+            FormsVideoPlayer.Init("CA185EF5ADE718EB678231E51058A935FE633A55");
             LoadApplication(new App());
         }
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

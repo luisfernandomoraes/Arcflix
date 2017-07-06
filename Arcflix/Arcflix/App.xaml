@@ -12,11 +12,18 @@
             <Color x:Key="DarkBackgroundColor">#C0C0C0</Color>
             <Color x:Key="MediumGrayTextColor">#4d4d4d</Color>
             <Color x:Key="LightTextColor">#999999</Color>
+            <Color x:Key="BackgroundColor">White</Color>
 
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource Primary}" />
                 <Setter Property="BarTextColor" Value="White" />
             </Style>
+
+            <!--  GLOBAL EXPLICIT STYLES  -->
+            <Style x:Key="PageBaseStyle" TargetType="Page">
+                <Setter Property="BackgroundColor" Value="{StaticResource BackgroundColor}" />
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

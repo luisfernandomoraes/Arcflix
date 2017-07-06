@@ -17,6 +17,20 @@ namespace Arcflix.Views
         {
             InitializeComponent();
             BindingContext = new LoginViewModel(ilm);
+            InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
+        }
+
+        /// <summary>
+        /// When overridden, allows application developers to customize behavior immediately prior to the <see cref="T:Xamarin.Forms.Page" /> becoming visible.
+        /// </summary>
+        /// <remarks>
+        /// To be added.
+        /// </remarks>
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            VideoPlayer.Play();
         }
     }
 }

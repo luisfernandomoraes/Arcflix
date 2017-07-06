@@ -42,7 +42,6 @@
     <Compile Include="Controls\ChillPlayer\VideoResourceExtension.cs" />
     <Compile Include="Controls\ChillPlayer\VimeoVideo.cs" />
     <Compile Include="Controls\ChillPlayer\VimeoVideoIdExtension.cs" />
-    <Compile Include="Controls\ChillPlayer\YouTubeVideoIdExtension.cs" />
     <Compile Include="Controls\FacebookButton.cs" />
     <Compile Include="Helpers\MessengingCenterAlert.cs" />
     <Compile Include="Helpers\ObservableObject.cs" />
@@ -175,8 +174,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Video\" />
+    <EmbeddedResource Include="Videos\video.mp4" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
