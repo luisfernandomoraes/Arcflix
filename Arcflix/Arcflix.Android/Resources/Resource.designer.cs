@@ -26,6 +26,10 @@ namespace Arcflix.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.ApplicationName = global::Arcflix.Droid.Resource.String.ApplicationName;
+			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.Hello = global::Arcflix.Droid.Resource.String.Hello;
+			global::SQLite.Net.Platform.XamarinAndroidN.Resource.String.ApplicationName = global::Arcflix.Droid.Resource.String.ApplicationName;
+			global::SQLite.Net.Platform.XamarinAndroidN.Resource.String.Hello = global::Arcflix.Droid.Resource.String.Hello;
 			global::Plugin.Toasts.Resource.Drawable.error = global::Arcflix.Droid.Resource.Drawable.error;
 			global::Plugin.Toasts.Resource.Drawable.info = global::Arcflix.Droid.Resource.Drawable.info;
 			global::Plugin.Toasts.Resource.Drawable.success = global::Arcflix.Droid.Resource.Drawable.success;
