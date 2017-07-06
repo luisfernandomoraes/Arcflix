@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using Arcflix.Services;
+using Arcflix.Services.DB;
 using Arcflix.Views;
 using Plugin.Toasts;
 using Xamarin.Forms;
@@ -9,32 +11,40 @@ using Xamarin.Forms.Xaml;
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Arcflix
 {
-    public partial class App : Application,ILoginManager
+    public partial class App : Application, ILoginManager
     {
         public static IToastNotificator Notificator;
         public static App Current;
+        public bool IsLoggedIn;
 
         public App()
         {
             Current = this;
             InitializeComponent();
             LoadConfigurations();
-            Current.MainPage = new NavigationPage(new LoginModalPage(this) { Title = "User Login" });
+            SetMainPage();
         }
 
         private void LoadConfigurations()
         {
             Properties["IsLoggedIn"] = false;
-            
+            var user = ArcflixDBContext.UserDataBase.GetItems().FirstOrDefault();
+            if (user != null)
+                Properties["IsLoggedIn"] = true;
+
         }
 
-        public static void SetMainPage()
+        public void SetMainPage()
         {
-            Current.MainPage = new MasterDetailPage()
-            {
-                Master = new MasterPage() { Title = "Main Page" },
-                Detail = new NavigationPage(new ItemsPage())
-            };
+            IsLoggedIn = Properties.ContainsKey(nameof(IsLoggedIn)) && Convert.ToBoolean(Properties[nameof(IsLoggedIn)]);
+            if (!IsLoggedIn)
+                Current.MainPage = new NavigationPage(new LoginModalPage(this) { Title = "User Login" });
+            else
+                Current.MainPage = new MasterDetailPage()
+                {
+                    Master = new MasterPage() { Title = "Main Page" },
+                    Detail = new NavigationPage(new ItemsPage())
+                };
         }
 
         /// <summary>
@@ -44,7 +54,16 @@ namespace Arcflix
         {
             SetMainPage();
         }
-
+        /// <summary>
+        /// Metodo usado para ocultar o page que faz o login via facebook. 
+        /// </summary>
+        public static Action HideLoginView
+        {
+            get
+            {
+                return () => Current.MainPage.Navigation.PopModalAsync();
+            }
+        }
         public void Logout()
         {
             throw new System.NotImplementedException();

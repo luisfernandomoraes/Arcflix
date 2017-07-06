@@ -5,6 +5,7 @@ using Android.Telephony;
 using Android.Widget;
 using Arcflix.Controls;
 using Arcflix.Droid.Renders;
+using Arcflix.Models;
 using Plugin.Toasts;
 using Xamarin.Facebook;
 using Xamarin.Facebook.Login;
@@ -68,69 +69,13 @@ namespace Arcflix.Droid.Renders
                             }
                             try
                             {
+                                _loginButton.Enabled = false;
+
+                                var user = User.FromRawJsonFacebook2Object(response.RawResponse);
+                                Arcflix.Services.DB.ArcflixDBContext.UserDataBase.SaveItem(user);
+                                App.Current.Properties["IsLoggedIn"] = true;
+
                                 App.Current.ShowMainPage();
-                                //var createUserViewModel = new CreateUserViewModel();
-
-                                //var obj = JObject.Parse(response.RawResponse);
-                                //var id = obj["id"].ToString().Replace("\"", "");
-                                //var email = obj["email"]?.ToString().Replace("\"", "");
-                                //var fullName = obj["name"]?.ToString().Replace("\"", "");
-                                //var gender = obj["gender"]?.ToString().Replace("\"", "");
-                                //var birthday = obj["birthday"]?.ToString().Replace("\"", "");
-                                ////Pode ser que o usuario não deixe isso 
-                                //var profileLink = obj["link"]?.ToString().Replace("\"", "");
-
-                                //DateTime birthdayDateTime;
-                                //if (!string.IsNullOrEmpty(birthday))
-                                //{
-                                //    birthdayDateTime = Convert.ToDateTime(birthday, new CultureInfo("en-US"));
-                                //}
-                                //else
-                                //{
-                                //    birthdayDateTime = Constants.MinBirthDate;
-                                //}
-
-                                //User user;
-
-                                //// se ja estiver um usuario no banco e ele não tiver um access token, devemos apenas autenticar, para termos o accesstoken, 
-                                //// realizar as publicações.
-                                //if (App.DatabaseUser.GetItems().Any() &&
-                                //    App.DatabaseUser.GetItems().FirstOrDefault()?.AccessToken == null)
-                                //{
-                                //    user = App.DatabaseUser.GetItems().First();
-                                //    user.AccessToken = fbArgs.AccessToken;
-                                //    user.ExpiryTokenDate = fbArgs.TokenExpiration;
-                                //    user.Sex = !string.IsNullOrEmpty(gender) ? gender.ToUpper()[0].ToString() : null;
-                                //    user.FacebookProfile = profileLink;
-                                //}
-                                //else
-                                //{
-                                //    // Caso contrario, a chamada a essa pagia se deu a partir da pagina de criação do usuario. 
-                                //    // é apenas instanciado um novo usuario e salvo seus dados a partir do fb, nos dois banco de dados (local do aparelho e nuvem do scannprice.)
-                                //    user = new User
-                                //    {
-                                //        Name = fullName,
-                                //        Email = email,
-                                //        Sex = !string.IsNullOrEmpty(gender) ? gender.ToUpper()[0].ToString() : null,
-                                //        BirthDate = birthdayDateTime,
-                                //        CellPhone = GetPhoneNumber(),
-                                //        FacebookID = Convert.ToInt64(id),
-                                //        FacebookProfile = profileLink,
-                                //        AccessToken = fbArgs.AccessToken,
-                                //        ExpiryTokenDate = fbArgs.TokenExpiration
-                                //    };
-                                //}
-                                //try
-                                //{
-                                //    createUserViewModel.IsProcessingRegister = false;
-                                //    createUserViewModel.Save(user);
-                                //    App.HideLoginView();
-                                //}
-                                //catch (Exception exx)
-                                //{
-                                //    //TODO: refatorar. 
-                                //    System.Diagnostics.Debug.WriteLine(e);
-                                //}
 
                             }
                             catch (Exception ex)

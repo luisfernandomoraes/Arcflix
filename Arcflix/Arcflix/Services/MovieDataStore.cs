@@ -14,14 +14,15 @@ namespace Arcflix.Services
 {
     public class MovieDataStore : IDataStore<Movie>
     {
-        private bool isInitialized;
-        private List<Movie> Movies;
-        private ServiceClient _clientTMDb;
+        private bool _isInitialized;
+        private List<Movie> _movies;
+        private ServiceClient _clientTmDb;
+
         public async Task<bool> AddItemAsync(Movie item)
         {
             await InitializeAsync();
 
-            Movies.Add(item);
+            _movies.Add(item);
 
             return await Task.FromResult(true);
         }
@@ -30,9 +31,9 @@ namespace Arcflix.Services
         {
             await InitializeAsync();
 
-            var movie = Movies.FirstOrDefault(arg => arg.Id == item.Id);
-            Movies.Remove(movie);
-            Movies.Add(item);
+            var movie = _movies.FirstOrDefault(arg => arg.Id == item.Id);
+            _movies.Remove(movie);
+            _movies.Add(item);
 
             return await Task.FromResult(true);
         }
@@ -41,8 +42,8 @@ namespace Arcflix.Services
         {
             await InitializeAsync();
 
-            var movie = Movies.FirstOrDefault(arg => arg.Id == item.Id);
-            Movies.Remove(movie);
+            var movie = _movies.FirstOrDefault(arg => arg.Id == item.Id);
+            _movies.Remove(movie);
 
             return await Task.FromResult(true);
         }
@@ -51,7 +52,7 @@ namespace Arcflix.Services
         {
             await InitializeAsync();
 
-            return await Task.FromResult(Movies.FirstOrDefault(s => s.Id == id));
+            return await Task.FromResult(_movies.FirstOrDefault(s => s.Id == id));
         }
 
         public async Task<IEnumerable<Movie>> GetItemsAsync(bool forceRefresh = false, int pageIndex = 1)
@@ -77,22 +78,22 @@ namespace Arcflix.Services
 
         public async Task InitializeAsync()
         {
-            if (isInitialized)
+            if (_isInitialized)
                 return;
 
-            Movies = new List<Movie>();
+            _movies = new List<Movie>();
             var movies = await GetItemsByPage();
             foreach (Movie movie in movies.Results)
             {
-                Movies.Add(movie);
+                _movies.Add(movie);
             }
-            isInitialized = true;
+            _isInitialized = true;
         }
 
         private async Task<Movies> GetItemsByPage(int index = 1)
         {
-            _clientTMDb = _clientTMDb ?? new ServiceClient("1f54bd990f1cdfb230adb312546d765d");
-            Movies movies = await _clientTMDb.Movies.GetUpcomingAsync("en-US", index, new CancellationToken());
+            _clientTmDb = _clientTmDb ?? new ServiceClient("1f54bd990f1cdfb230adb312546d765d");
+            Movies movies = await _clientTmDb.Movies.GetUpcomingAsync("en-US", index, new CancellationToken());
             return await Task.FromResult(movies);
         }
     }

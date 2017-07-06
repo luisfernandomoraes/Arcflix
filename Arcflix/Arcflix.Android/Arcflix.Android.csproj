@@ -65,6 +65,12 @@
       <HintPath>..\..\packages\Xam.Plugins.Forms.ImageCircle.1.8.1\lib\MonoAndroid10\ImageCircle.Forms.Plugin.Android.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Data.Sqlite" />
+    <Reference Include="Octane.Xam.VideoPlayer, Version=1.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Octane.Xam.VideoPlayer.1.2.3.0\lib\MonoAndroid10\Octane.Xam.VideoPlayer.dll</HintPath>
+    </Reference>
+    <Reference Include="Octane.Xam.VideoPlayer.Android, Version=1.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Octane.Xam.VideoPlayer.1.2.3.0\lib\MonoAndroid10\Octane.Xam.VideoPlayer.Android.dll</HintPath>
+    </Reference>
     <Reference Include="Plugin.Iconize, Version=1.0.10.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xam.Plugin.Iconize.1.0.10\lib\MonoAndroid10\Plugin.Iconize.dll</HintPath>
     </Reference>

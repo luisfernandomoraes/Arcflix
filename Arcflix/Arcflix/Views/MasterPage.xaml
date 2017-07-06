@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
-             xmlns:views="clr-namespace:Arcflix.Views;assembly=Arcflix"
-             x:Class="Arcflix.Views.MasterPage">
+<ContentPage
+    x:Class="Arcflix.Views.MasterPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+    xmlns:views="clr-namespace:Arcflix.Views;assembly=Arcflix">
     <ContentPage.Content>
         <Grid BackgroundColor="Transparent">
             <Grid.RowDefinitions>
@@ -11,16 +12,39 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid>
-                <Image Source="bg.png" Aspect="AspectFill" />
-                <StackLayout Padding="0,20,0,0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                    <abstractions:CircleImage BorderColor="White" BorderThickness="2" Source="profile.png" Aspect="AspectFill" WidthRequest="85" HeightRequest="85" />
-                    <Label Text="Adam Pedley" TextColor="White" FontSize="Large" />
+                <Image Aspect="AspectFill" Source="bg.png" />
+                <StackLayout
+                    Padding="0,20,0,0"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand">
+                    <abstractions:CircleImage
+                        Aspect="AspectFit"
+                        BorderColor="White"
+                        BorderThickness="2"
+                        HeightRequest="95"
+                        Source="{Binding ProfilePicture}"
+                        WidthRequest="95" />
+                    <Label
+                        FontSize="Large"
+                        Text="{Binding UserName}"
+                        TextColor="White" />
                 </StackLayout>
             </Grid>
-            <StackLayout Margin="20,20,20,0" Grid.Row="1" Spacing="15">
-                <views:NavigationItem Text="Page One" Icon="fa-archive" Command="{Binding NavigationCommand}" CommandParameter="1" />
-                <ContentView HeightRequest="1" BackgroundColor="Gray" />
-                <views:NavigationItem Text="Page Two" Icon="fa-cog" Command="{Binding NavigationCommand}" CommandParameter="2" />
+            <StackLayout
+                Grid.Row="1"
+                Margin="20,20,20,0"
+                Spacing="15">
+                <views:NavigationItem
+                    Command="{Binding NavigationCommand}"
+                    CommandParameter="1"
+                    Icon="fa-archive"
+                    Text="Page One" />
+                <ContentView BackgroundColor="Gray" HeightRequest="1" />
+                <views:NavigationItem
+                    Command="{Binding NavigationCommand}"
+                    CommandParameter="2"
+                    Icon="fa-cog"
+                    Text="Page Two" />
             </StackLayout>
         </Grid>
     </ContentPage.Content>
