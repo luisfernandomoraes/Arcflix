@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.TMDb;
 using System.Text;
 using System.Threading.Tasks;
 using Arcflix.ViewModels;
@@ -14,10 +15,10 @@ namespace Arcflix.Views
     {
         MovieDetailViewModel _viewModel;
 
-        public MovieDetailPage()
+        public MovieDetailPage(Movie movie)
         {
             InitializeComponent();
-           // BindingContext = _viewModel = new MovieDetailViewModel();
+           BindingContext = _viewModel = new MovieDetailViewModel(movie);
         }
     }
 }

@@ -2,28 +2,45 @@
 <ContentPage
     x:Class="Arcflix.Views.MovieDetailPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="{Binding Title}">
     <ContentPage.Content>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Star" />
-                <ColumnDefinition Width="Star" />
-                <ColumnDefinition Width="Star" />
-                <ColumnDefinition Width="Star" />
-                <ColumnDefinition Width="Star" />
-                <ColumnDefinition Width="Star" />
-                <ColumnDefinition Width="Star" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Star" />
-                <RowDefinition Height="Star" />
-                <RowDefinition Height="Star" />
-                <RowDefinition Height="Star" />
-                <RowDefinition Height="Star" />
-                <RowDefinition Height="Star" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Image />
-            <!--  https://forums.xamarin.com/discussion/41392/grid-column-definition-in-percent  -->
+
+            <Image
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="7"
+                Aspect="AspectFill"
+                Source="{Binding MovieDetail.Backdrop, StringFormat='https://image.tmdb.org/t/p/w780{0:N}'}" />
+            <Image
+                Grid.Row="1"
+                Grid.RowSpan="3"
+                Grid.Column="1"
+                Grid.ColumnSpan="3"
+                Aspect="Fill"
+                HorizontalOptions="FillAndExpand"
+                Source="{Binding MovieDetail.Poster, StringFormat='https://image.tmdb.org/t/p/w500{0:N}'}"
+                VerticalOptions="FillAndExpand" />
 
         </Grid>
     </ContentPage.Content>

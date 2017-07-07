@@ -26,7 +26,6 @@
                 IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                 ItemAppearing="ItemsListView_OnItemAppearing"
                 ItemSelected="OnItemSelected"
-                ItemTapped="ItemsListView_OnItemTapped"
                 ItemsSource="{Binding Movies}"
                 RefreshCommand="{Binding LoadItemsCommand}"
                 SeparatorColor="Transparent"

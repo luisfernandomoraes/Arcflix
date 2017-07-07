@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Net.TMDb;
 using Arcflix.Models;
 using Arcflix.ViewModels;
 
@@ -21,19 +22,14 @@ namespace Arcflix.Views
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            var item = args.SelectedItem as Item;
+            var item = args.SelectedItem as Movie;
             if (item == null)
                 return;
 
-            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
+            await Navigation.PushAsync(new MovieDetailPage(item));
 
-            // Manually deselect item
+            // Manually deselected item
             ItemsListView.SelectedItem = null;
-        }
-
-        async void AddItem_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new NewItemPage());
         }
 
         protected override void OnAppearing()
@@ -51,11 +47,6 @@ namespace Arcflix.Views
             {
                 await _viewModel.LoadMore();
             }
-        }
-
-        private void ItemsListView_OnItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            
         }
     }
 }
