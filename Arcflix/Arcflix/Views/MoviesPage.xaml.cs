@@ -52,5 +52,10 @@ namespace Arcflix.Views
                 await _viewModel.LoadMore();
             }
         }
+
+        private void ItemsListView_OnItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            
+        }
     }
 }

@@ -26,6 +26,7 @@
                 IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                 ItemAppearing="ItemsListView_OnItemAppearing"
                 ItemSelected="OnItemSelected"
+                ItemTapped="ItemsListView_OnItemTapped"
                 ItemsSource="{Binding Movies}"
                 RefreshCommand="{Binding LoadItemsCommand}"
                 SeparatorColor="Transparent"
@@ -44,6 +45,7 @@
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="2" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
 
@@ -61,18 +63,20 @@
                                         <Label
                                             x:Name="LblTitulo"
                                             Grid.Row="0"
-                                            Grid.Column="1"
+                                            Grid.Column="2"
                                             FontSize="Medium"
-                                            HorizontalOptions="Center"
+                                            HorizontalOptions="Start"
+                                            HorizontalTextAlignment="Start"
                                             LineBreakMode="TailTruncation"
                                             Text="{Binding Title}"
+                                            TextColor="#E06A00"
                                             VerticalOptions="FillAndExpand" />
 
                                         <controls:HeaderDivider Grid.Row="1" Grid.Column="1" />
 
                                         <Label
                                             Grid.Row="2"
-                                            Grid.Column="1"
+                                            Grid.Column="2"
                                             FontAttributes="Bold"
                                             FontSize="Small"
                                             HorizontalOptions="StartAndExpand"
@@ -82,7 +86,7 @@
 
                                         <Label
                                             Grid.Row="3"
-                                            Grid.Column="1"
+                                            Grid.Column="2"
                                             FontAttributes="Italic"
                                             FontSize="12"
                                             HorizontalOptions="FillAndExpand"
