@@ -20,7 +20,9 @@ namespace Arcflix.Controls
         public Action<object, FacebookEventArgs> OnLogin;
         public void Login(object sender, FacebookEventArgs args)
         {
+            IsVisible = false;
             OnLogin?.Invoke(sender, args);
         }
+
     }
 }

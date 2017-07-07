@@ -13,12 +13,20 @@ namespace Arcflix.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
+        public bool IsBusy;
         public LoginPage(ILoginManager ilm)
         {
             Title = "Login";
             InitializeComponent();
             BindingContext = new LoginViewModel(ilm);
             InitializeComponent();
+            IsBusy = false;
+            FacebookButton.Clicked += FacebookButton_Clicked;
+        }
+
+        private void FacebookButton_Clicked(object sender, EventArgs e)
+        {
+            IsBusy = true;
         }
 
         /// <summary>

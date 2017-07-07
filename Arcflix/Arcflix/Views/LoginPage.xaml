@@ -29,7 +29,7 @@
                                                                    Property=Height}"
             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
                                                                   Property=Width}" />
-
+        <ActivityIndicator IsRunning="{Binding IsBusy}" />
         <StackLayout
             HorizontalOptions="CenterAndExpand"
             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
@@ -51,6 +51,7 @@
                 </OnPlatform>
             </StackLayout.Padding>
             <controls:FacebookButton
+                x:Name="FacebookButton"
                 Margin="0,15,0,0"
                 BackgroundColor="#3D598A"
                 Command="{Binding LoginFBCommand}"
