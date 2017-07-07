@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Arcflix.Views.MoviesPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:Arcflix.Controls;assembly=Arcflix"
+    xmlns:converts="clr-namespace:Arcflix.Converts;assembly=Arcflix"
+    x:Name="BrowseItemsPage"
+    Title="{Binding Title}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converts:DescriptionToDescritpionSuspensionPoints x:Key="DescriptionToDescritpionSuspensionPoints" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <!--<ToolbarItem Clicked="AddItem_Clicked" Text="Add Item" />-->
+        <ToolbarItem Icon="search_icon.png" Text="Add Item" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView
+                x:Name="ItemsListView"
+                CachingStrategy="RecycleElement"
+                HasUnevenRows="true"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                ItemAppearing="ItemsListView_OnItemAppearing"
+                ItemSelected="OnItemSelected"
+                ItemsSource="{Binding Movies}"
+                RefreshCommand="{Binding LoadItemsCommand}"
+                SeparatorColor="Transparent"
+                VerticalOptions="FillAndExpand">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="{DynamicResource CardPadding}" Spacing="{DynamicResource CardSpacing}">
+                                <controls:CardView>
+                                    <Grid Padding="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+
+                                        <Image
+                                            Grid.Row="0"
+                                            Grid.RowSpan="4"
+                                            Grid.Column="0"
+                                            Aspect="Fill"
+                                            HorizontalOptions="FillAndExpand"
+                                            Source="{Binding Poster, StringFormat='https://image.tmdb.org/t/p/w185_and_h278_bestv2{0:N}'}"
+                                            VerticalOptions="FillAndExpand" />
+
+
+                                        <Label
+                                            x:Name="LblTitulo"
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            FontSize="Medium"
+                                            HorizontalOptions="Center"
+                                            LineBreakMode="TailTruncation"
+                                            Text="{Binding Title}"
+                                            VerticalOptions="FillAndExpand" />
+
+                                        <controls:HeaderDivider Grid.Row="1" Grid.Column="1" />
+
+                                        <Label
+                                            Grid.Row="2"
+                                            Grid.Column="1"
+                                            FontAttributes="Bold"
+                                            FontSize="Small"
+                                            HorizontalOptions="StartAndExpand"
+                                            HorizontalTextAlignment="Start"
+                                            Text="{Binding ReleaseDate, StringFormat='Release date: {0:dd/MM/yyyy}'}"
+                                            VerticalOptions="EndAndExpand" />
+
+                                        <Label
+                                            Grid.Row="3"
+                                            Grid.Column="1"
+                                            FontAttributes="Italic"
+                                            FontSize="12"
+                                            HorizontalOptions="FillAndExpand"
+                                            LineBreakMode="WordWrap"
+                                            Text="{Binding Overview, Converter={StaticResource DescriptionToDescritpionSuspensionPoints}}"
+                                            VerticalOptions="FillAndExpand" />
+
+                                    </Grid>
+                                </controls:CardView>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

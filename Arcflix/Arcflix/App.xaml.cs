@@ -43,7 +43,7 @@ namespace Arcflix
                 Current.MainPage = new MasterDetailPage()
                 {
                     Master = new MasterPage() { Title = "Main Page" },
-                    Detail = new NavigationPage(new ItemsPage())
+                    Detail = new NavigationPage(new MoviesPage())
                 };
         }
 

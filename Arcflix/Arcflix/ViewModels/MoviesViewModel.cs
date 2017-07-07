@@ -13,22 +13,22 @@ using Xamarin.Forms;
 
 namespace Arcflix.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public class MoviesViewModel : BaseViewModel
     {
-        public ObservableRangeCollection<Movie> Items { get; set; }
+        public ObservableRangeCollection<Movie> Movies { get; set; }
         public Command LoadItemsCommand { get; set; }
         private int _pageIndex;
-        public ItemsViewModel()
+        public MoviesViewModel()
         {
             Title = "Upcoming Movies";
-            Items = new ObservableRangeCollection<Movie>();
+            Movies = new ObservableRangeCollection<Movie>();
             _pageIndex = 1;
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
             MessagingCenter.Subscribe<NewItemPage, Movie>(this, "AddItem", async (obj, item) =>
             {
                 var _item = item as Movie;
-                Items.Add(_item);
+                Movies.Add(_item);
                 await DataStore.AddItemAsync(_item);
             });
         }
@@ -41,7 +41,7 @@ namespace Arcflix.ViewModels
             {
                 var enumerable = itens as Movie[] ?? itens.ToArray();
                 if (enumerable.Any())
-                    Items.AddRange(enumerable);
+                    Movies.AddRange(enumerable);
             }
         }
 
@@ -54,10 +54,10 @@ namespace Arcflix.ViewModels
 
             try
             {
-                Items.Clear();
+                Movies.Clear();
                 _pageIndex = 1;
                 var items = await DataStore.GetItemsAsync(true);
-                Items.ReplaceRange(items);
+                Movies.ReplaceRange(items);
             }
             catch (Exception ex)
             {

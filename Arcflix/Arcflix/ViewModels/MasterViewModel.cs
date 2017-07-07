@@ -34,7 +34,7 @@ namespace Arcflix.ViewModels
             switch (obj.ToString())
             {
                 case "1":
-                    mdp.Detail = new NavigationPage(new ItemsPage());
+                    mdp.Detail = new NavigationPage(new MoviesPage());
                     break;
                 case "2":
                     mdp.Detail = new NavigationPage(new AboutPage());

@@ -7,15 +7,15 @@ using Xamarin.Forms;
 
 namespace Arcflix.Views
 {
-    public partial class ItemsPage : ContentPage
+    public partial class MoviesPage : ContentPage
     {
-        ItemsViewModel _viewModel;
+        MoviesViewModel _viewModel;
 
-        public ItemsPage()
+        public MoviesPage()
         {
             InitializeComponent();
 
-            BindingContext = _viewModel = new ItemsViewModel();
+            BindingContext = _viewModel = new MoviesViewModel();
             
         }
 
@@ -40,14 +40,14 @@ namespace Arcflix.Views
         {
             base.OnAppearing();
 
-            if (_viewModel.Items.Count == 0)
+            if (_viewModel.Movies.Count == 0)
                 _viewModel.LoadItemsCommand.Execute(null);
         }
 
         private async void ItemsListView_OnItemAppearing(object sender, ItemVisibilityEventArgs e)
         {
             var items = this.ItemsListView.ItemsSource as IList;
-            if (items != null && e.Item == _viewModel.Items[items.Count - 1])
+            if (items != null && e.Item == _viewModel.Movies[items.Count - 1])
             {
                 await _viewModel.LoadMore();
             }

@@ -14,6 +14,27 @@
             <Color x:Key="LightTextColor">#999999</Color>
             <Color x:Key="BackgroundColor">White</Color>
 
+            <OnPlatform
+                x:Key="CardPadding"
+                x:TypeArguments="Thickness"
+                Android="8,5"
+                WinPhone="0,0,0,16"
+                iOS="5,0,5,16" />
+
+            <OnPlatform
+                x:Key="CardSpacing"
+                x:TypeArguments="x:Double"
+                Android="16"
+                WinPhone="0"
+                iOS="0" />
+
+            <OnPlatform
+                x:Key="Divider"
+                x:TypeArguments="Color"
+                Android="#ECECEC"
+                WinPhone="#C8C7CC"
+                iOS="#C8C7CC" />
+
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource Primary}" />
                 <Setter Property="BarTextColor" Value="White" />

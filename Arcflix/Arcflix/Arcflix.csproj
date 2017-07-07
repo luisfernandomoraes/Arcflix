@@ -38,11 +38,16 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CardView.cs" />
     <Compile Include="Controls\ChillPlayer\ImageResourceExtension.cs" />
     <Compile Include="Controls\ChillPlayer\VideoResourceExtension.cs" />
     <Compile Include="Controls\ChillPlayer\VimeoVideo.cs" />
     <Compile Include="Controls\ChillPlayer\VimeoVideoIdExtension.cs" />
     <Compile Include="Controls\FacebookButton.cs" />
+    <Compile Include="Controls\HeaderDivider.xaml.cs">
+      <DependentUpon>HeaderDivider.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converts\DescriptionToDescritpionSuspensionPoints.cs" />
     <Compile Include="Helpers\MessengingCenterAlert.cs" />
     <Compile Include="Helpers\ObservableObject.cs" />
     <Compile Include="Helpers\ObservableRangeCollection.cs" />
@@ -61,7 +66,7 @@
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ItemDetailViewModel.cs" />
-    <Compile Include="ViewModels\ItemsViewModel.cs" />
+    <Compile Include="ViewModels\MoviesViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MasterViewModel.cs" />
     <Compile Include="Views\AboutPage.xaml.cs">
@@ -70,8 +75,8 @@
     <Compile Include="Views\ItemDetailPage.xaml.cs">
       <DependentUpon>ItemDetailPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ItemsPage.xaml.cs">
-      <DependentUpon>ItemsPage.xaml</DependentUpon>
+    <Compile Include="Views\MoviesPage.xaml.cs">
+      <DependentUpon>MoviesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -99,7 +104,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ItemsPage.xaml">
+    <EmbeddedResource Include="Views\MoviesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -174,7 +179,12 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\HeaderDivider.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Videos\video.mp4" />
   </ItemGroup>
