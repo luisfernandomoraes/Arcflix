@@ -37,14 +37,25 @@
                 <views:NavigationItem
                     Command="{Binding NavigationCommand}"
                     CommandParameter="1"
-                    Icon="fa-archive"
-                    Text="Page One" />
+                    Icon="fa-film"
+                    Text="Upcoming Movies" />
+                <views:NavigationItem
+                    Command="{Binding NavigationCommand}"
+                    CommandParameter="1"
+                    Icon="fa-television"
+                    Text="Upcoming Series" />
+                <views:NavigationItem
+                    Command="{Binding NavigationCommand}"
+                    CommandParameter="1"
+                    Icon="fa-bookmark-o"
+                    Text="Saved" />
+
                 <ContentView BackgroundColor="Gray" HeightRequest="1" />
                 <views:NavigationItem
                     Command="{Binding NavigationCommand}"
                     CommandParameter="2"
                     Icon="fa-cog"
-                    Text="Page Two" />
+                    Text="Configurations" />
             </StackLayout>
         </Grid>
     </ContentPage.Content>

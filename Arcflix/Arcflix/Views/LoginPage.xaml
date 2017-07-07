@@ -24,7 +24,7 @@
 
         <BoxView
             BackgroundColor="#E06A00"
-            Opacity=".45"
+            Opacity=".40"
             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
                                                                    Property=Height}"
             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
@@ -55,17 +55,19 @@
                 BackgroundColor="#3D598A"
                 Command="{Binding LoginFBCommand}"
                 HeightRequest="36"
-                IsVisible="{Binding IsVisibleBtnFB}"
                 HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding IsVisibleBtnFB}"
                 Text="Login with Facebook"
-                TextColor="White" />
+                TextColor="White"
+                WidthRequest="300" />
             <Button
                 Margin="0,15,0,0"
-                HorizontalOptions="FillAndExpand"
                 BackgroundColor="Transparent"
                 Command="{Binding LoginWithoutFacebookCommand}"
+                HorizontalOptions="FillAndExpand"
                 Text="Skip login"
-                TextColor="Black" />
+                TextColor="Black"
+                WidthRequest="300" />
         </StackLayout>
     </RelativeLayout>
 </ContentPage>

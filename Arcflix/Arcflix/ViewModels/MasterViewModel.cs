@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows.Input;
 using Arcflix.Models;
 using Arcflix.Services.DB;
@@ -9,16 +10,52 @@ namespace Arcflix.ViewModels
 {
     public class MasterViewModel
     {
+        #region Fields
+
         public string ProfilePicture { get; set; }
         public string UserName { get; set; }
 
-        private User _currentUser;
+        private readonly User _currentUser;
+
+        #endregion
+
+        #region Commands
+
+        public ICommand NavigationCommand => new Command(Navigation);
+
+        private void Navigation(object obj)
+        {
+            var mdp = (Application.Current.MainPage as MasterDetailPage);
+            var navPage = mdp.Detail as NavigationPage;
+
+            // Hide the Master page
+            mdp.IsPresented = false;
+
+            switch (obj.ToString())
+            {
+                case "1":
+                    mdp.Detail = new NavigationPage(new ItemsPage());
+                    break;
+                case "2":
+                    mdp.Detail = new NavigationPage(new AboutPage());
+                    break;
+            }
+        }
+
+        #endregion
+
+
+        #region Constructor
 
         public MasterViewModel()
         {
             _currentUser = ArcflixDBContext.UserDataBase.GetItems().FirstOrDefault();
             LoadUserProfile();
         }
+
+        #endregion
+
+        #region Methods
 
         private void LoadUserProfile()
         {
@@ -27,30 +64,7 @@ namespace Arcflix.ViewModels
 
         }
 
-        public ICommand NavigationCommand
-        {
-            get
-            {
-                return new Command((value) =>
-                {
-                    // COMMENT: This is just quick demo code. Please don't put this in a production app.
-                    var mdp = (Application.Current.MainPage as MasterDetailPage);
-                    var navPage = mdp.Detail as NavigationPage;
-
-                    // Hide the Master page
-                    mdp.IsPresented = false;
-
-                    switch (value)
-                    {
-                        case "1":
-                            navPage.PushAsync(new ItemsPage());
-                            break;
-                        case "2":
-                            navPage.PushAsync(new AboutPage());
-                            break;
-                    }
-                });
-            }
-        }
+        #endregion
+        
     }
 }

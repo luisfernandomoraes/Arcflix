@@ -16,6 +16,7 @@ namespace Arcflix.Views
             InitializeComponent();
 
             BindingContext = _viewModel = new ItemsViewModel();
+            
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)

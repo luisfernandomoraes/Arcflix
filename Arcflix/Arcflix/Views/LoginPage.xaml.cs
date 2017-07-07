@@ -15,10 +15,10 @@ namespace Arcflix.Views
     {
         public LoginPage(ILoginManager ilm)
         {
+            Title = "Login";
             InitializeComponent();
             BindingContext = new LoginViewModel(ilm);
             InitializeComponent();
-            NavigationPage.SetHasNavigationBar(this, false);
         }
 
         /// <summary>
