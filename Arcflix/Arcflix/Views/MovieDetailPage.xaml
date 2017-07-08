@@ -7,7 +7,7 @@
     <ContentPage.Content>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2" />
+                <ColumnDefinition Width="4" />
                 <ColumnDefinition Width="5*" />
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="2*" />
@@ -16,7 +16,7 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*" />
+                <RowDefinition Height="3*" />
                 <RowDefinition Height="3*" />
                 <RowDefinition Height="2*" />
                 <RowDefinition Height="2*" />
@@ -40,7 +40,17 @@
                 HorizontalOptions="FillAndExpand"
                 Source="{Binding MovieDetail.Poster, StringFormat='https://image.tmdb.org/t/p/w500{0:N}'}"
                 VerticalOptions="FillAndExpand" />
-
+            <Label
+                Grid.Row="2"
+                Grid.Column="2"
+                Grid.ColumnSpan="3"
+                FontSize="Medium"
+                HorizontalOptions="Start"
+                HorizontalTextAlignment="Start"
+                LineBreakMode="WordWrap"
+                Text="{Binding MovieDetail.Title}"
+                TextColor="#E06A00"
+                VerticalOptions="FillAndExpand" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>
