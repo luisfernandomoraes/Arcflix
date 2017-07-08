@@ -16,7 +16,7 @@
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="8" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*" />
@@ -46,6 +46,7 @@
                 VerticalOptions="FillAndExpand" />
             <Label
                 Grid.Row="2"
+                Grid.RowSpan="2"
                 Grid.Column="2"
                 Grid.ColumnSpan="3"
                 FontSize="Medium"
@@ -54,6 +55,40 @@
                 LineBreakMode="WordWrap"
                 Text="{Binding MovieDetail.Title}"
                 TextColor="#E06A00"
+                VerticalOptions="FillAndExpand" />
+            <StackLayout
+                Grid.Row="2"
+                Grid.Column="5"
+                Spacing="1">
+                <Image
+                    Aspect="AspectFit"
+                    HorizontalOptions="Center"
+                    Source="ic_star_black_18dp.png"
+                    VerticalOptions="Center" />
+                <Label
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding MovieDetail.VoteAverage}" />
+            </StackLayout>
+            <Label
+                Grid.Row="3"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Margin="0,25,0,0"
+                FontAttributes="Bold"
+                FontSize="Small"
+                HorizontalOptions="StartAndExpand"
+                HorizontalTextAlignment="Start"
+                Text="{Binding MovieDetail.ReleaseDate, StringFormat='Release date: {0:dd/MM/yyyy}'}"
+                VerticalOptions="StartAndExpand" />
+            <Label
+                Grid.Row="4"
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                Grid.ColumnSpan="5"
+                FontAttributes="Italic"
+                HorizontalOptions="FillAndExpand"
+                Text="{Binding MovieDetail.Overview}"
                 VerticalOptions="FillAndExpand" />
         </Grid>
     </ContentPage.Content>
