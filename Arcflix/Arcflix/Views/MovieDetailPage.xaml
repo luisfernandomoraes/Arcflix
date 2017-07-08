@@ -70,34 +70,38 @@
                     HorizontalTextAlignment="Center"
                     Text="{Binding MovieDetail.VoteAverage}" />
             </StackLayout>
-            <Label
-                Grid.Row="3"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                Margin="0,25,0,0"
-                FontAttributes="Bold"
-                FontSize="Small"
-                HorizontalOptions="StartAndExpand"
-                HorizontalTextAlignment="Start"
-                Text="{Binding MovieDetail.ReleaseDate, StringFormat='Release date: {0:dd/MM/yyyy}'}"
-                VerticalOptions="StartAndExpand" />
 
             <StackLayout
-                Grid.Row="4"
-                Grid.RowSpan="2"
+                Grid.Row="3"
                 Grid.Column="1"
-                Grid.ColumnSpan="5">
+                Grid.ColumnSpan="5"
+                Spacing="1">
                 <Label
-                    FontAttributes="Italic"
-                    HorizontalOptions="FillAndExpand"
-                    Text="{Binding MovieDetail.Overview}"
-                    VerticalOptions="FillAndExpand" />
+                    Margin="0,25,0,0"
+                    FontAttributes="Bold"
+                    FontSize="Small"
+                    HorizontalOptions="StartAndExpand"
+                    HorizontalTextAlignment="Start"
+                    Text="{Binding MovieDetail.ReleaseDate, StringFormat='Release date: {0:dd/MM/yyyy}'}"
+                    VerticalOptions="StartAndExpand" />
                 <Label
                     FontAttributes="Italic"
                     HorizontalOptions="FillAndExpand"
                     Text="{Binding Genders, Mode=TwoWay}"
                     VerticalOptions="FillAndExpand" />
             </StackLayout>
+
+
+            <Label
+                Grid.Row="4"
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                Grid.ColumnSpan="5"
+                FontAttributes="Italic"
+                HorizontalOptions="FillAndExpand"
+                Text="{Binding MovieDetail.Overview}"
+                VerticalOptions="FillAndExpand" />
+
         </Grid>
     </ContentPage.Content>
 </ContentPage>

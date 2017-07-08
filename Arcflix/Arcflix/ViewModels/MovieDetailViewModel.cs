@@ -50,12 +50,12 @@ namespace Arcflix.ViewModels
                     for (var i = 0;i< length; i++)
                     {
                         if (i == length - 1)
-                            builder.Append(genderList[i]);
+                            builder.Append(genderList[i]+".");
                         else
                             builder.Append(genderList[i]+", ");
 
                     }
-                    Genders = "Genders: " + builder;
+                    Genders = builder.ToString();
                 }
             }
             catch (Exception e)
