@@ -56,9 +56,11 @@
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Api\ITMDBExtendedApi.cs" />
     <Compile Include="Services\DB\ArcflixDBContext.cs" />
     <Compile Include="Services\DB\DatabaseSQLite.cs" />
     <Compile Include="Services\DB\ISQLite.cs" />
+    <Compile Include="Services\Api\TMDBExtendedApi.cs" />
     <Compile Include="Services\IDataStore.cs" />
     <Compile Include="Services\ILoginManager.cs" />
     <Compile Include="Services\LoginModalPage.cs" />

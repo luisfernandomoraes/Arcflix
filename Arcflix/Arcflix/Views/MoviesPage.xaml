@@ -18,6 +18,30 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
+            <SearchBar
+                x:Name="searchBarMovies"
+                FontSize="Small"
+                IsVisible="{Binding IsVisibleSearchBar, Mode=TwoWay}"
+                Placeholder="Search"
+                SearchCommand="{Binding FilterMoviesCommand}"
+                Text="{Binding Filter, Mode=TwoWay}">
+                <SearchBar.PlaceholderColor>
+                    <OnPlatform x:TypeArguments="Color" Android="White" />
+                </SearchBar.PlaceholderColor>
+                <SearchBar.BackgroundColor>
+                    <OnPlatform x:TypeArguments="Color" Android="{StaticResource Primary}" />
+                </SearchBar.BackgroundColor>
+                <SearchBar.TextColor>
+                    <OnPlatform x:TypeArguments="Color" Android="White" />
+                </SearchBar.TextColor>
+                <SearchBar.CancelButtonColor>
+                    <OnPlatform
+                        x:TypeArguments="Color"
+                        Android="White"
+                        iOS="{StaticResource Primary}" />
+                </SearchBar.CancelButtonColor>
+            </SearchBar>
+
             <ListView
                 x:Name="ItemsListView"
                 CachingStrategy="RecycleElement"

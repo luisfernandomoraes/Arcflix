@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Arcflix.Models;
-
+using Arcflix.Services.Api;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(Arcflix.Services.MovieDataStore))]
@@ -17,7 +17,7 @@ namespace Arcflix.Services
         private bool _isInitialized;
         private List<Movie> _movies;
         private ServiceClient _clientTmDb;
-
+        private TMDBExtendedApi _tmdbExtendedApi;
         public async Task<bool> AddItemAsync(Movie item)
         {
             await InitializeAsync();
@@ -48,17 +48,26 @@ namespace Arcflix.Services
             return await Task.FromResult(true);
         }
 
-        public async Task<Movie> GetItemAsync(int id)
+        public async Task<Movie> GetItemAsync(int id, bool isGetDetails = false)
+        {
+            await InitializeAsync();
+            if (!isGetDetails)
+                return await Task.FromResult(_movies.FirstOrDefault(s => s.Id == id));
+            return await GetItemDetailAsync(id);
+        }
+        public async Task<Movie> GetItemDetailAsync(int id)
         {
             await InitializeAsync();
 
-            return await Task.FromResult(_movies.FirstOrDefault(s => s.Id == id));
+            _tmdbExtendedApi = _tmdbExtendedApi ?? new TMDBExtendedApi("1f54bd990f1cdfb230adb312546d765d");
+            var movie = await _tmdbExtendedApi.GetMovieDetailsAsync(id, "en-US");
+            return await Task.FromResult(movie);
         }
 
         public async Task<IEnumerable<Movie>> GetItemsAsync(bool forceRefresh = false, int pageIndex = 1)
         {
             await InitializeAsync();
-            
+
             var movies = await GetItemsByPage(pageIndex);
 
             return await Task.FromResult(movies.Results);

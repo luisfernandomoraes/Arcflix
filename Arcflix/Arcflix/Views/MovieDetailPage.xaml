@@ -81,15 +81,23 @@
                 HorizontalTextAlignment="Start"
                 Text="{Binding MovieDetail.ReleaseDate, StringFormat='Release date: {0:dd/MM/yyyy}'}"
                 VerticalOptions="StartAndExpand" />
-            <Label
+
+            <StackLayout
                 Grid.Row="4"
                 Grid.RowSpan="2"
                 Grid.Column="1"
-                Grid.ColumnSpan="5"
-                FontAttributes="Italic"
-                HorizontalOptions="FillAndExpand"
-                Text="{Binding MovieDetail.Overview}"
-                VerticalOptions="FillAndExpand" />
+                Grid.ColumnSpan="5">
+                <Label
+                    FontAttributes="Italic"
+                    HorizontalOptions="FillAndExpand"
+                    Text="{Binding MovieDetail.Overview}"
+                    VerticalOptions="FillAndExpand" />
+                <Label
+                    FontAttributes="Italic"
+                    HorizontalOptions="FillAndExpand"
+                    Text="{Binding Genders, Mode=TwoWay}"
+                    VerticalOptions="FillAndExpand" />
+            </StackLayout>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

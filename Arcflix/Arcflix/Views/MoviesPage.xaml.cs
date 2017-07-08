@@ -11,12 +11,13 @@ namespace Arcflix.Views
     public partial class MoviesPage : ContentPage
     {
         MoviesViewModel _viewModel;
+        public SearchBar SearchBarMovies => searchBarMovies;
 
         public MoviesPage()
         {
             InitializeComponent();
 
-            BindingContext = _viewModel = new MoviesViewModel();
+            BindingContext = _viewModel = new MoviesViewModel(this);
             
         }
 

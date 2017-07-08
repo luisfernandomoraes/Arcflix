@@ -21,8 +21,14 @@ namespace Arcflix
         {
             Current = this;
             InitializeComponent();
+            RegisterDependencies();
             LoadConfigurations();
             SetMainPage();
+        }
+
+        private void RegisterDependencies()
+        {
+            //DependencyService.Register<Services.Api.ITMDBExtendedApi, Services.Api.TMDBExtendedApi>();
         }
 
         private void LoadConfigurations()
