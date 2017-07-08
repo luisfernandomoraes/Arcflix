@@ -7,22 +7,22 @@
     <ContentPage.Content>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="2" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
                 <RowDefinition Height="2*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="2*" />
             </Grid.RowDefinitions>
 
             <Image
@@ -30,14 +30,13 @@
                 Grid.RowSpan="2"
                 Grid.Column="0"
                 Grid.ColumnSpan="7"
-                Aspect="AspectFill"
+                Aspect="Fill"
                 Source="{Binding MovieDetail.Backdrop, StringFormat='https://image.tmdb.org/t/p/w780{0:N}'}" />
             <Image
                 Grid.Row="1"
-                Grid.RowSpan="3"
+                Grid.RowSpan="2"
                 Grid.Column="1"
-                Grid.ColumnSpan="3"
-                Aspect="Fill"
+                Aspect="AspectFill"
                 HorizontalOptions="FillAndExpand"
                 Source="{Binding MovieDetail.Poster, StringFormat='https://image.tmdb.org/t/p/w500{0:N}'}"
                 VerticalOptions="FillAndExpand" />
