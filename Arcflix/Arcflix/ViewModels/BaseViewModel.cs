@@ -13,6 +13,7 @@ namespace Arcflix.ViewModels
         /// Get the azure service instance
         /// </summary>
         public IDataStore<Movie> MovieDataStore => DependencyService.Get<IDataStore<Movie>>();
+        public IDataStore<Show> ShowDataStore => DependencyService.Get<IDataStore<Show>>();
 
         bool _isBusy = false;
         public bool IsBusy

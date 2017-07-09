@@ -41,7 +41,7 @@
                     Text="Upcoming Movies" />
                 <views:NavigationItem
                     Command="{Binding NavigationCommand}"
-                    CommandParameter="1"
+                    CommandParameter="2"
                     Icon="fa-television"
                     Text="Popular TV Shows" />
                 <views:NavigationItem

@@ -4,8 +4,9 @@ using System.Windows.Input;
 using Arcflix.Models;
 using Arcflix.Services.DB;
 using Arcflix.Views;
+using Arcflix.Views.Movies;
+using Arcflix.Views.Shows;
 using Xamarin.Forms;
-using MoviesPage = Arcflix.Views.Movies.MoviesPage;
 
 namespace Arcflix.ViewModels
 {
@@ -38,13 +39,12 @@ namespace Arcflix.ViewModels
                     mdp.Detail = new NavigationPage(new MoviesPage());
                     break;
                 case "2":
-                    mdp.Detail = new NavigationPage(new AboutPage());
+                    mdp.Detail = new NavigationPage(new ShowsPage());
                     break;
             }
         }
 
         #endregion
-
 
         #region Constructor
 

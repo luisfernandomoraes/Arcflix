@@ -1,5 +1,6 @@
 ﻿using System.Net.TMDb;
 using Arcflix.ViewModels;
+using Arcflix.ViewModels.Movies;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

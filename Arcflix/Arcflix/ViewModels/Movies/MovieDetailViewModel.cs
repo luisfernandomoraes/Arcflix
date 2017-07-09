@@ -10,7 +10,7 @@ using Arcflix.Services;
 using Plugin.Toasts;
 using Xamarin.Forms;
 
-namespace Arcflix.ViewModels
+namespace Arcflix.ViewModels.Movies
 {
     public class MovieDetailViewModel : BaseViewModel
     {

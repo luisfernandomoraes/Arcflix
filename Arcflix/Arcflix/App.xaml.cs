@@ -4,10 +4,10 @@ using System.Linq;
 using Arcflix.Services;
 using Arcflix.Services.DB;
 using Arcflix.Views;
+using Arcflix.Views.Movies;
 using Plugin.Toasts;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using MoviesPage = Arcflix.Views.Movies.MoviesPage;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Arcflix

@@ -9,11 +9,10 @@ using Arcflix.Helpers;
 using Arcflix.Models;
 using Arcflix.NativeCallsInterfaces;
 using Arcflix.Views;
-
+using Arcflix.Views.Movies;
 using Xamarin.Forms;
-using MoviesPage = Arcflix.Views.Movies.MoviesPage;
 
-namespace Arcflix.ViewModels
+namespace Arcflix.ViewModels.Movies
 {
     public class MoviesViewModel : BaseViewModel
     {
@@ -55,9 +54,9 @@ namespace Arcflix.ViewModels
             }
 
         }
-        public ICommand FilterPromotionsCommand => new Command(async () => await FilterPromotionsAsync());
+        public ICommand FilterMoviesCommand => new Command(async () => await FilterMoviesAsync());
 
-        private async Task FilterPromotionsAsync()
+        private async Task FilterMoviesAsync()
         {
             Device.BeginInvokeOnMainThread(() =>
                     {
@@ -160,7 +159,7 @@ namespace Arcflix.ViewModels
             {
                 if (value == _filter) return;
                 _filter = value;
-                Task.Run(() => FilterPromotionsAsync());
+                Task.Run(() => FilterMoviesAsync());
             }
         }
         #endregion
