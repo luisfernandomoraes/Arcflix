@@ -15,7 +15,7 @@
 		<item name="colorPrimaryDark">#AE5000</item>
 		<!-- colorAccent is used as the default value for colorControlActivated
          which is used to tint widgets -->
-		<item name="colorAccent">#FF4081</item>
+		<item name="colorAccent">#AE5000</item>
 		<!-- You can also set colorControlNormal, colorControlActivated
          colorControlHighlight and colorSwitchThumbNormal. -->
 		<item name="windowActionModeOverlay">true</item>
@@ -31,6 +31,6 @@
   
   
 	<style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
-		<item name="colorAccent">#FF4081</item>
+		<item name="colorAccent">#AE5000</item>
 	</style>
 </resources>

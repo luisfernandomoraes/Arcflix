@@ -55,6 +55,9 @@ namespace Arcflix.ViewModels
                         }
                     });
                     break;
+                case "4":
+                    mdp.Detail = new NavigationPage(new SettingsPage());
+                    break;
             }
         }
 

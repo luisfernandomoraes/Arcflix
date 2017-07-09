@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Arcflix.Views.SettingsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="{Binding Title}">
+    <ContentPage.Content>
+        <TableView Intent="Settings">
+            <TableRoot>
+                <TableSection Title="The MovieDb Settings">
+                    <TextCell
+                        Command="{Binding SelectLanguageCommand}"
+                        Detail="{Binding Language}"
+                        Text="Api Language"
+                        TextColor="{StaticResource Primary}" />
+                    <EntryCell
+                        Label="Api Key"
+                        LabelColor="{StaticResource Primary}"
+                        Text="{Binding ApiKey}" />
+                </TableSection>
+            </TableRoot>
+        </TableView>
+    </ContentPage.Content>
+</ContentPage>

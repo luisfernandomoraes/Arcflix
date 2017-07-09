@@ -53,7 +53,7 @@
                 <ContentView BackgroundColor="Gray" HeightRequest="1" />
                 <views:NavigationItem
                     Command="{Binding NavigationCommand}"
-                    CommandParameter="2"
+                    CommandParameter="4"
                     Icon="fa-cog"
                     Text="Configurations" />
             </StackLayout>

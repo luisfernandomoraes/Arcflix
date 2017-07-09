@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net.TMDb;
 using System.Threading;
 using System.Threading.Tasks;
+using Arcflix.Helpers;
 using Arcflix.Services.Api;
 using Xamarin.Forms;
 
@@ -51,8 +52,8 @@ namespace Arcflix.Services
         {
             await InitializeAsync();
 
-            _tmdbExtendedApi = _tmdbExtendedApi ?? new TMDBExtendedApi("1f54bd990f1cdfb230adb312546d765d");
-            var shows = await _tmdbExtendedApi.GetShowDetailsAsync(id, "en-US");
+            _tmdbExtendedApi = _tmdbExtendedApi ?? new TMDBExtendedApi(Settings.ApiKey);
+            var shows = await _tmdbExtendedApi.GetShowDetailsAsync(id, Settings.Language);
             return await Task.FromResult(shows);
         }
 
@@ -91,8 +92,8 @@ namespace Arcflix.Services
         private async Task<Shows> GetItemsByPage(int index = 1)
         {
 
-            _clientTmDb = _clientTmDb ?? new ServiceClient("1f54bd990f1cdfb230adb312546d765d");
-            Shows shows = await _clientTmDb.Shows.GetPopularAsync("en-US", index, new CancellationToken());
+            _clientTmDb = _clientTmDb ?? new ServiceClient(Settings.ApiKey);
+            Shows shows = await _clientTmDb.Shows.GetPopularAsync(Settings.Language, index, new CancellationToken());
             return await Task.FromResult(shows);
         }
     }
