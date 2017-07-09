@@ -46,7 +46,7 @@
                     Text="Popular TV Shows" />
                 <views:NavigationItem
                     Command="{Binding NavigationCommand}"
-                    CommandParameter="1"
+                    CommandParameter="3"
                     Icon="fa-bookmark-o"
                     Text="Saved" />
 

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Input;
+using Arcflix.Controls;
 using Arcflix.Models;
 using Arcflix.Services.DB;
 using Arcflix.Views;
 using Arcflix.Views.Movies;
+using Arcflix.Views.Saved;
 using Arcflix.Views.Shows;
 using Xamarin.Forms;
 
@@ -41,6 +43,18 @@ namespace Arcflix.ViewModels
                 case "2":
                     mdp.Detail = new NavigationPage(new ShowsPage());
                     break;
+                case "3":
+                    mdp.Detail = new NavigationPage(new PrettyTabbedPage
+                    {
+                        Title = "Saved",
+                        ShowTitles = false,
+                        Children =
+                    {
+                        new SavedMoviesPage{Icon = "saved_movies",SelectedIcon = "saved_movies_selected"},
+                        new SavedShowsPage{Icon = "shows_saved",SelectedIcon = "shows_saved_selected"},
+                        }
+                    });
+                    break;
             }
         }
 
@@ -66,6 +80,6 @@ namespace Arcflix.ViewModels
         }
 
         #endregion
-        
+
     }
 }

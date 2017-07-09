@@ -47,6 +47,8 @@
     <Compile Include="Controls\HeaderDivider.xaml.cs">
       <DependentUpon>HeaderDivider.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PrettyTabbedPage.cs" />
+    <Compile Include="Controls\TabPage.cs" />
     <Compile Include="Converts\DescriptionToDescritpionSuspensionPoints.cs" />
     <Compile Include="Helpers\MessengingCenterAlert.cs" />
     <Compile Include="Helpers\ObservableObject.cs" />
@@ -76,6 +78,10 @@
     <Compile Include="ViewModels\Movies\MoviesViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MasterViewModel.cs" />
+    <Compile Include="ViewModels\Saved\SavedMovieDetailViewModel.cs" />
+    <Compile Include="ViewModels\Saved\SavedMoviesViewModel.cs" />
+    <Compile Include="ViewModels\Saved\SavedShowDetailViewModel.cs" />
+    <Compile Include="ViewModels\Saved\SavedShowsViewModel.cs" />
     <Compile Include="ViewModels\Shows\ShowDetailViewModel.cs" />
     <Compile Include="ViewModels\Shows\ShowsViewModel.cs" />
     <Compile Include="Views\AboutPage.xaml.cs">
@@ -101,6 +107,18 @@
     </Compile>
     <Compile Include="Views\NewItemPage.xaml.cs">
       <DependentUpon>NewItemPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Saved\SavedMovieDetailPage.xaml.cs">
+      <DependentUpon>SavedMovieDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Saved\SavedMoviesPage.xaml.cs">
+      <DependentUpon>SavedMoviesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Saved\SavedShowDetailPage.xaml.cs">
+      <DependentUpon>SavedShowDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Saved\SavedShowsPage.xaml.cs">
+      <DependentUpon>SavedShowsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shows\ShowDetailPage.xaml.cs">
       <DependentUpon>ShowDetailPage.xaml</DependentUpon>
@@ -221,6 +239,31 @@
   <ItemGroup>
     <EmbeddedResource Include="Views\Shows\ShowsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Saved\SavedMovieDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Saved\SavedMoviesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Saved\SavedShowsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Saved\SavedShowDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
