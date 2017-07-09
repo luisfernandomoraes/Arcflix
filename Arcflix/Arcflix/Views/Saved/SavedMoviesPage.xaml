@@ -50,7 +50,6 @@
                 HasUnevenRows="true"
                 IsPullToRefreshEnabled="true"
                 IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                ItemAppearing="ItemsListView_OnItemAppearing"
                 ItemSelected="OnItemSelected"
                 ItemsSource="{Binding Movies, Mode=TwoWay}"
                 RefreshCommand="{Binding LoadItemsCommand}"

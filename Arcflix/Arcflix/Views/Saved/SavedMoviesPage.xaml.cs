@@ -40,14 +40,6 @@ namespace Arcflix.Views.Saved
             if (_viewModel.Movies.Count == 0)
                 _viewModel.LoadItemsCommand.Execute(null);
         }
-
-        private async void ItemsListView_OnItemAppearing(object sender, ItemVisibilityEventArgs e)
-        {
-            var items = this.ItemsListView.ItemsSource as IList;
-            if (items != null && e.Item == _viewModel.Movies[items.Count - 1] && string.IsNullOrEmpty(_viewModel.Filter))
-            {
-                await _viewModel.LoadMore();
-            }
-        }
+        
     }
 }

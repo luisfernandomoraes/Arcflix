@@ -37,6 +37,7 @@ namespace Arcflix.ViewModels.Saved
                         .FirstOrDefault(x => x.IDApi == MovieDetail.IDApi);
                     Arcflix.Services.DB.ArcflixDBContext.MovieDataBase.DeleteItem(movie.ID);
                     MovieDetail.IsAdded = false;
+                    MessagingCenter.Send<SavedMovieDetailViewModel>(this,"ItemChanged");
                     App.ShowToast(ToastNotificationType.Success, "Arcflix", "movie removed!", 3);
 
                 }
@@ -47,7 +48,7 @@ namespace Arcflix.ViewModels.Saved
                     Arcflix.Services.DB.ArcflixDBContext.MovieDataBase.SaveItem(movieModel);
                     MovieDetail.IsAdded = true;
                     App.ShowToast(ToastNotificationType.Success, "Arcflix", "movie saved!", 3);
-
+                    MessagingCenter.Send(this, "ItemChanged");
                 }
 
             }
