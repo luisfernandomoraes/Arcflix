@@ -33,7 +33,7 @@ namespace Arcflix.Models
         public string TagLine { get; set;}
         public string OriginalTitle { get; set;}
         public string Title { get; set;}
-
+        public string PosterURL => $@"https://image.tmdb.org/t/p/w185_and_h278_bestv2{Poster}";
         public bool IsAdded
         {
             get => _isAdded;

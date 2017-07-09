@@ -84,7 +84,7 @@
                                             Grid.Column="0"
                                             Aspect="Fill"
                                             HorizontalOptions="FillAndExpand"
-                                            Source="{Binding Poster, StringFormat='https://image.tmdb.org/t/p/w185_and_h278_bestv2{0:N}'}"
+                                            Source="{Binding PosterURL}"
                                             VerticalOptions="FillAndExpand" />
 
 

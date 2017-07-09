@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Net.TMDb;
+using Arcflix.Models;
 using Arcflix.ViewModels.Shows;
 using Xamarin.Forms;
 
@@ -20,7 +21,7 @@ namespace Arcflix.Views.Shows
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            var item = args.SelectedItem as Show;
+            var item = args.SelectedItem as ShowModel;
             if (item == null)
                 return;
 

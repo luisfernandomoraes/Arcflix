@@ -26,7 +26,7 @@ namespace Arcflix.Views.Saved
             if (item == null)
                 return;
 
-            await Navigation.PushAsync(new Shows.ShowDetailPage(item));
+            await Navigation.PushAsync(new SavedShowDetailPage(item));
 
             // Manually deselected item
             ItemsListView.SelectedItem = null;

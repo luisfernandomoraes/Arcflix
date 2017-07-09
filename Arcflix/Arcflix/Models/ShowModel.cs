@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using Arcflix.Helpers;
 using SQLite.Net.Attributes;
 
 namespace Arcflix.Models
 {
-    public class ShowModel:IModel
+    public class ShowModel:ObservableObject,IModel
     {
+        private bool _isAdded;
+
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
         public int IDApi { get; set; }
@@ -25,6 +28,11 @@ namespace Arcflix.Models
         public string OriginalName { get; set; }
         public string Name { get; set; }
         public bool InProduction { get; set; }
+        public bool IsAdded
+        {
+            get => _isAdded;
+            set => SetProperty(ref _isAdded, value);
+        }
 
         public static ShowModel ShowApiToShowModel(System.Net.TMDb.Show show)
         {
@@ -50,6 +58,16 @@ namespace Arcflix.Models
             };
 
             return showModel;
+        }
+        public static IEnumerable<ShowModel> MovieListApiToMovieModelList(IEnumerable<System.Net.TMDb.Show> shows)
+        {
+            var showsResult = new List<ShowModel>();
+            foreach (var show in shows)
+            {
+                var showModel = ShowApiToShowModel(show);
+                showsResult.Add(showModel);
+            }
+            return showsResult;
         }
     }
 }

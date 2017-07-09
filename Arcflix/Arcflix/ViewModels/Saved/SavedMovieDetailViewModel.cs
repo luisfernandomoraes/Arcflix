@@ -29,22 +29,25 @@ namespace Arcflix.ViewModels.Saved
         {
             try
             {
-                var movieFromDB = Arcflix.Services.DB.ArcflixDBContext.MovieDataBase.GetItems()
-                    .FirstOrDefault(x => x.IDApi == MovieDetail.Id);
-                if (movieFromDB != null)
+                var isMovieSaved = IsMovieSaved(MovieDetail.IDApi);
+                if (isMovieSaved)
                 {
                     ToolBarItemIcon = "ic_bookmark_24dp.png";
-                    Arcflix.Services.DB.ArcflixDBContext.MovieDataBase.DeleteItem(movieFromDB.ID);
+                    var movie = Services.DB.ArcflixDBContext.MovieDataBase.GetItems()
+                        .FirstOrDefault(x => x.IDApi == MovieDetail.IDApi);
+                    Arcflix.Services.DB.ArcflixDBContext.MovieDataBase.DeleteItem(movie.ID);
+                    MovieDetail.IsAdded = false;
                     App.ShowToast(ToastNotificationType.Success, "Arcflix", "movie removed!", 3);
 
                 }
                 else
                 {
                     ToolBarItemIcon = "ic_bookmark_white_24dp.png";
-                    var movieModel = MovieModel.MovieApiToMovieModel(MovieDetail);
+                    var movieModel = MovieDetail;
                     Arcflix.Services.DB.ArcflixDBContext.MovieDataBase.SaveItem(movieModel);
+                    MovieDetail.IsAdded = true;
                     App.ShowToast(ToastNotificationType.Success, "Arcflix", "movie saved!", 3);
-                    
+
                 }
 
             }
@@ -58,7 +61,7 @@ namespace Arcflix.ViewModels.Saved
 
         #region Properties
 
-        public Movie MovieDetail { get; private set; }
+        public MovieModel MovieDetail { get; private set; }
 
         public string ToolBarItemIcon
         {
@@ -76,7 +79,7 @@ namespace Arcflix.ViewModels.Saved
 
         #region Constructor
 
-        public SavedMovieDetailViewModel(Movie movie)
+        public SavedMovieDetailViewModel(MovieModel movie)
         {
             Title = "Movie Details";
             MovieDetail = movie;
@@ -88,15 +91,23 @@ namespace Arcflix.ViewModels.Saved
         #endregion
 
         #region Methods
-
-
+        /// <summary>
+        /// Returns true if a movie is saved in local database.
+        /// </summary>
+        /// <param name="movieId">Id of movie</param>
+        /// <returns></returns>
+        public static bool IsMovieSaved(int movieId)
+        {
+            var movieFromDB = Services.DB.ArcflixDBContext.MovieDataBase.GetItems()
+                .FirstOrDefault(x => x.IDApi == movieId);
+            return movieFromDB != null;
+        }
         private void SetIconToolBar()
         {
             try
             {
-                var movieFromDB = Services.DB.ArcflixDBContext.MovieDataBase.GetItems()
-                    .FirstOrDefault(x => x.IDApi == MovieDetail.Id);
-                ToolBarItemIcon = movieFromDB == null ? "ic_bookmark_24dp.png" : "ic_bookmark_white_24dp.png";
+                bool isAdded = IsMovieSaved(MovieDetail.IDApi);
+                ToolBarItemIcon = !isAdded ? "ic_bookmark_24dp.png" : "ic_bookmark_white_24dp.png";
             }
             catch (Exception e)
             {
@@ -108,11 +119,11 @@ namespace Arcflix.ViewModels.Saved
         {
             try
             {
-                MovieDetail = await MovieDataStore.GetItemAsync(MovieDetail.Id, true);
-                if (MovieDetail.Genres != null)
+                var movieFromApi = await MovieDataStore.GetItemAsync(MovieDetail.IDApi, true);
+                if (movieFromApi.Genres != null)
                 {
                     var builder = new StringBuilder();
-                    var genderList = MovieDetail.Genres.Select(x => x.Name).ToArray();
+                    var genderList = movieFromApi.Genres.Select(x => x.Name).ToArray();
                     var length = genderList.Length;
                     for (var i = 0; i < length; i++)
                     {

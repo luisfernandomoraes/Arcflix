@@ -6,6 +6,7 @@ using System.Net.TMDb;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Arcflix.Helpers;
+using Arcflix.Models;
 using Arcflix.NativeCallsInterfaces;
 using Arcflix.Views.Shows;
 using Xamarin.Forms;
@@ -21,7 +22,7 @@ namespace Arcflix.ViewModels.Shows
         private readonly ShowsPage _showsPage;
         private string _filter;
         private IKeyboardInteractions _keyboardInteractions;
-        private ObservableRangeCollection<Show> _shows;
+        private ObservableRangeCollection<ShowModel> _shows;
 
         #endregion
 
@@ -75,7 +76,7 @@ namespace Arcflix.ViewModels.Shows
                             }
                             else
                             {
-                                List<Show> filteredShows;
+                                List<ShowModel> filteredShows;
                                 if (ShowsBackup.Count != 0)
                                     filteredShows = ShowsBackup.Where(x => x.Name.ToLower()
                                         .Contains(Filter.ToLower())).ToList();
@@ -111,9 +112,14 @@ namespace Arcflix.ViewModels.Shows
                 Shows.Clear();
                 _pageIndex = 1;
                 var items = await ShowDataStore.GetItemsAsync(true);
+                var shows = ShowModel.MovieListApiToMovieModelList(items);
+                foreach (var showModel in shows)
+                {
+                    showModel.IsAdded = ShowDetailViewModel.IsShowSaved(showModel.IDApi);
+                }
                 if(ShowsBackup.Count == 0)
-                    ShowsBackup.AddRange(items);
-                Shows.ReplaceRange(items);
+                    ShowsBackup.AddRange(shows);
+                Shows.ReplaceRange(shows);
                 Filter = string.Empty;
                 IsVisibleSearchBar = false;
             }
@@ -137,13 +143,13 @@ namespace Arcflix.ViewModels.Shows
 
         #region Properties
 
-        public ObservableRangeCollection<Show> Shows
+        public ObservableRangeCollection<ShowModel> Shows
         {
             get => _shows;
             set => SetProperty(ref _shows, value);
         }
 
-        public List<Show> ShowsBackup { get; set; }
+        public List<ShowModel> ShowsBackup { get; set; }
 
         public bool IsVisibleSearchBar
         {
@@ -167,8 +173,8 @@ namespace Arcflix.ViewModels.Shows
         public ShowsViewModel(ShowsPage showsPage)
         {
             Title = "Popular TV Shows";
-            Shows = new ObservableRangeCollection<Show>();
-            ShowsBackup = new List<Show>();
+            Shows = new ObservableRangeCollection<ShowModel>();
+            ShowsBackup = new List<ShowModel>();
             _pageIndex = 1;
             _showsPage = showsPage;
             _keyboardInteractions = DependencyService.Get<IKeyboardInteractions>();
@@ -187,8 +193,13 @@ namespace Arcflix.ViewModels.Shows
                 var enumerable = itens as Show[] ?? itens.ToArray();
                 if (enumerable.Any())
                 {
-                    Shows.AddRange(enumerable);
-                    ShowsBackup.AddRange(enumerable);
+                    var shows = ShowModel.MovieListApiToMovieModelList(enumerable);
+                    foreach (var showModel in shows)
+                    {
+                        showModel.IsAdded = ShowDetailViewModel.IsShowSaved(showModel.IDApi);
+                    }
+                    Shows.AddRange(shows);
+                    ShowsBackup.AddRange(shows);
                 }
             }
         }

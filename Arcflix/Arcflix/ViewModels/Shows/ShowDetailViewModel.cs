@@ -29,22 +29,25 @@ namespace Arcflix.ViewModels.Shows
         {
             try
             {
-                var showFromDB = Arcflix.Services.DB.ArcflixDBContext.ShowDataBase.GetItems()
-                    .FirstOrDefault(x => x.IDApi == ShowDetail.Id);
-                if (showFromDB != null)
+                var isShowSaved = IsShowSaved(ShowDetail.IDApi);
+                if (isShowSaved)
                 {
                     ToolBarItemIcon = "ic_bookmark_24dp.png";
-                    Arcflix.Services.DB.ArcflixDBContext.ShowDataBase.DeleteItem(showFromDB.ID);
+                    var show = Services.DB.ArcflixDBContext.ShowDataBase.GetItems()
+                        .FirstOrDefault(x => x.IDApi == ShowDetail.IDApi);
+                    Arcflix.Services.DB.ArcflixDBContext.ShowDataBase.DeleteItem(show.ID);
+                    ShowDetail.IsAdded = false;
                     App.ShowToast(ToastNotificationType.Success, "Arcflix", "show removed!", 3);
 
                 }
                 else
                 {
                     ToolBarItemIcon = "ic_bookmark_white_24dp.png";
-                    var showModel = ShowModel.ShowApiToShowModel(ShowDetail);
+                    var showModel = ShowDetail;
                     Arcflix.Services.DB.ArcflixDBContext.ShowDataBase.SaveItem(showModel);
+                    ShowDetail.IsAdded = true;
                     App.ShowToast(ToastNotificationType.Success, "Arcflix", "show saved!", 3);
-                    
+
                 }
 
             }
@@ -58,7 +61,7 @@ namespace Arcflix.ViewModels.Shows
 
         #region Properties
 
-        public Show ShowDetail { get; private set; }
+        public ShowModel ShowDetail { get; private set; }
 
         public string ToolBarItemIcon
         {
@@ -76,7 +79,7 @@ namespace Arcflix.ViewModels.Shows
 
         #region Constructor
 
-        public ShowDetailViewModel(Show show)
+        public ShowDetailViewModel(ShowModel show)
         {
             Title = "Show Details";
             ShowDetail = show;
@@ -88,15 +91,24 @@ namespace Arcflix.ViewModels.Shows
         #endregion
 
         #region Methods
-
+        /// <summary>
+        /// Returns true if a show is saved in local database.
+        /// </summary>
+        /// <param name="showId">Id of show</param>
+        /// <returns></returns>
+        public static bool IsShowSaved(int showId)
+        {
+            var showFromDB = Services.DB.ArcflixDBContext.ShowDataBase.GetItems()
+                .FirstOrDefault(x => x.IDApi == showId);
+            return showFromDB != null;
+        }
 
         private void SetIconToolBar()
         {
             try
             {
-                var showFromDB = Services.DB.ArcflixDBContext.ShowDataBase.GetItems()
-                    .FirstOrDefault(x => x.IDApi == ShowDetail.Id);
-                ToolBarItemIcon = showFromDB == null ? "ic_bookmark_24dp.png" : "ic_bookmark_white_24dp.png";
+                var isAdded = IsShowSaved(ShowDetail.IDApi);
+                ToolBarItemIcon = !isAdded ? "ic_bookmark_24dp.png" : "ic_bookmark_white_24dp.png";
             }
             catch (Exception e)
             {
@@ -108,11 +120,11 @@ namespace Arcflix.ViewModels.Shows
         {
             try
             {
-                ShowDetail = await ShowDataStore.GetItemAsync(ShowDetail.Id, true);
-                if (ShowDetail.Genres != null)
+                var showFromApi = await ShowDataStore.GetItemAsync(ShowDetail.IDApi, true);
+                if (showFromApi.Genres != null)
                 {
                     var builder = new StringBuilder();
-                    var genderList = ShowDetail.Genres.Select(x => x.Name).ToArray();
+                    var genderList = showFromApi.Genres.Select(x => x.Name).ToArray();
                     var length = genderList.Length;
                     for (var i = 0; i < length; i++)
                     {
