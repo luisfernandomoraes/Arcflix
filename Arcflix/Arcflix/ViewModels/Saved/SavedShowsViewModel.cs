@@ -6,7 +6,9 @@ using System.Net.TMDb;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Arcflix.Helpers;
+using Arcflix.Models;
 using Arcflix.NativeCallsInterfaces;
+using Arcflix.Services.DB;
 using Arcflix.Views.Saved;
 using Arcflix.Views.Shows;
 using Xamarin.Forms;
@@ -22,7 +24,7 @@ namespace Arcflix.ViewModels.Saved
         private readonly SavedShowsPage _showsPage;
         private string _filter;
         private IKeyboardInteractions _keyboardInteractions;
-        private ObservableRangeCollection<Show> _shows;
+        private ObservableRangeCollection<ShowModel> _shows;
 
         #endregion
 
@@ -57,31 +59,24 @@ namespace Arcflix.ViewModels.Saved
 
         private async Task FilterShowsAsync()
         {
-            Device.BeginInvokeOnMainThread(() =>
+            Device.BeginInvokeOnMainThread(async () =>
                     {
                         try
                         {
 
-                            IsBusy = true;
                             if (string.IsNullOrEmpty(Filter) && IsVisibleSearchBar)
                             {
 #pragma warning disable 618
                                 Device.OnPlatform(Android: () => _keyboardInteractions.HideKeyboard());
 #pragma warning restore 618
                                 _showsPage.SearchBarShows.Unfocus();
-                                var items = ShowsBackup;
-                                Shows.ReplaceRange(items);
+                                await ExecuteLoadItemsCommand();
                                 Filter = string.Empty;
                                 IsVisibleSearchBar = false;
                             }
                             else
                             {
-                                List<Show> filteredShows;
-                                if (ShowsBackup.Count != 0)
-                                    filteredShows = ShowsBackup.Where(x => x.Name.ToLower()
-                                        .Contains(Filter.ToLower())).ToList();
-                                else
-                                    filteredShows = Shows.Where(x => x.Name.ToLower()
+                                var filteredShows = ShowsBackup.Where(x => x.Name.ToLower()
                                     .Contains(Filter.ToLower())).ToList();
 
                                 Shows.ReplaceRange(filteredShows);
@@ -91,10 +86,6 @@ namespace Arcflix.ViewModels.Saved
                         {
                             Debug.WriteLine(e.ToString());
                             Task.Run(async () => await ExecuteLoadItemsCommand());
-                        }
-                        finally
-                        {
-                            IsBusy = false;
                         }
                     });
         }
@@ -111,10 +102,13 @@ namespace Arcflix.ViewModels.Saved
             {
                 Shows.Clear();
                 _pageIndex = 1;
-                var items = await ShowDataStore.GetItemsAsync(true);
-                if(ShowsBackup.Count == 0)
-                    ShowsBackup.AddRange(items);
-                Shows.ReplaceRange(items);
+                var shows = ArcflixDBContext.ShowDataBase.GetItems();
+                foreach (var showModel in shows)
+                {
+                    showModel.IsAdded = true;
+                }
+                ShowsBackup = shows;
+                Shows.ReplaceRange(shows);
                 Filter = string.Empty;
                 IsVisibleSearchBar = false;
             }
@@ -138,13 +132,13 @@ namespace Arcflix.ViewModels.Saved
 
         #region Properties
 
-        public ObservableRangeCollection<Show> Shows
+        public ObservableRangeCollection<ShowModel> Shows
         {
             get => _shows;
             set => SetProperty(ref _shows, value);
         }
 
-        public List<Show> ShowsBackup { get; set; }
+        public IEnumerable<ShowModel> ShowsBackup { get; private set; }
 
         public bool IsVisibleSearchBar
         {
@@ -168,30 +162,14 @@ namespace Arcflix.ViewModels.Saved
         public SavedShowsViewModel(SavedShowsPage showsPage)
         {
             Title = "Popular TV Shows";
-            Shows = new ObservableRangeCollection<Show>();
-            ShowsBackup = new List<Show>();
+            Shows = new ObservableRangeCollection<ShowModel>();
             _pageIndex = 1;
             _showsPage = showsPage;
             _keyboardInteractions = DependencyService.Get<IKeyboardInteractions>();
-        }
-
-        #endregion
-
-        #region Method
-
-        public async Task LoadMore()
-        {
-            ++_pageIndex;
-            var itens = await ShowDataStore.GetItemsAsync(true, _pageIndex);
-            if (itens != null)
+            MessagingCenter.Subscribe<SavedShowDetailViewModel>(this, "ItemChanged", async (args) =>
             {
-                var enumerable = itens as Show[] ?? itens.ToArray();
-                if (enumerable.Any())
-                {
-                    Shows.AddRange(enumerable);
-                    ShowsBackup.AddRange(enumerable);
-                }
-            }
+                await ExecuteLoadItemsCommand();
+            });
         }
 
         #endregion

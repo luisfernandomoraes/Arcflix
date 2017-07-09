@@ -1,4 +1,5 @@
 ﻿using System.Net.TMDb;
+using Arcflix.Models;
 using Arcflix.ViewModels.Saved;
 using Arcflix.ViewModels.Shows;
 using Xamarin.Forms;
@@ -11,7 +12,7 @@ namespace Arcflix.Views.Saved
     {
         SavedShowDetailViewModel _viewModel;
 
-        public SavedShowDetailPage(Show show)
+        public SavedShowDetailPage(ShowModel show)
         {
             InitializeComponent();
            BindingContext = _viewModel = new SavedShowDetailViewModel(show);

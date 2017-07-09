@@ -50,7 +50,6 @@
                 HasUnevenRows="true"
                 IsPullToRefreshEnabled="true"
                 IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                ItemAppearing="ItemsListView_OnItemAppearing"
                 ItemSelected="OnItemSelected"
                 ItemsSource="{Binding Shows, Mode=TwoWay}"
                 RefreshCommand="{Binding LoadItemsCommand}"
@@ -85,17 +84,26 @@
                                             VerticalOptions="FillAndExpand" />
 
 
-                                        <Label
-                                            x:Name="LblTitulo"
+                                        <StackLayout
                                             Grid.Row="0"
                                             Grid.Column="2"
-                                            FontSize="Medium"
-                                            HorizontalOptions="Start"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="TailTruncation"
-                                            Text="{Binding Name}"
-                                            TextColor="#E06A00"
-                                            VerticalOptions="FillAndExpand" />
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <Label
+                                                x:Name="LblTitulo"
+                                                FontSize="Medium"
+                                                HorizontalOptions="Start"
+                                                HorizontalTextAlignment="Start"
+                                                LineBreakMode="TailTruncation"
+                                                Text="{Binding Name}"
+                                                TextColor="#E06A00"
+                                                VerticalOptions="FillAndExpand" />
+                                            <Image
+                                                HorizontalOptions="EndAndExpand"
+                                                IsVisible="{Binding IsAdded, Mode=TwoWay}"
+                                                Opacity="0.75"
+                                                Source="ic_bookmark_black_18dp.png" />
+                                        </StackLayout>
 
                                         <controls:HeaderDivider Grid.Row="1" Grid.Column="1" />
 

@@ -64,8 +64,6 @@ namespace Arcflix.ViewModels.Saved
             {
                 try
                 {
-
-                    
                     if (string.IsNullOrEmpty(Filter) && IsVisibleSearchBar)
                     {
 #pragma warning disable 618
@@ -78,7 +76,7 @@ namespace Arcflix.ViewModels.Saved
                     }
                     else
                     {
-                        var filteredMovies = Movies.Where(x => x.Title.ToLower()
+                        var filteredMovies = MoviesBackup.Where(x => x.Title.ToLower()
                             .Contains(Filter.ToLower())).ToList();
 
                         Movies.ReplaceRange(filteredMovies);
@@ -110,6 +108,7 @@ namespace Arcflix.ViewModels.Saved
                 {
                     movieModel.IsAdded = true;
                 }
+                MoviesBackup = movies;
                 Movies.ReplaceRange(movies);
                 Filter = string.Empty;
                 IsVisibleSearchBar = false;
@@ -129,6 +128,8 @@ namespace Arcflix.ViewModels.Saved
                 IsBusy = false;
             }
         }
+
+        public IEnumerable<MovieModel> MoviesBackup { get; set; }
 
         #endregion
 
@@ -175,29 +176,5 @@ namespace Arcflix.ViewModels.Saved
 
         #endregion
 
-        #region Methods
-
-        public async Task LoadMore()
-        {
-            ++_pageIndex;
-            var itens = await MovieDataStore.GetItemsAsync(true, _pageIndex);
-            if (itens != null)
-            {
-                var enumerable = itens as Movie[] ?? itens.ToArray();
-                if (enumerable.Any())
-                {
-                    var movies = MovieModel.MovieListApiToMovieModelList(enumerable);
-                    foreach (var movieModel in movies)
-                    {
-                        movieModel.IsAdded = SavedMovieDetailViewModel.IsMovieSaved(movieModel.IDApi);
-                    }
-                    Movies.AddRange(movies);
-                }
-            }
-        }
-
-
-
-        #endregion
     }
 }
