@@ -11,6 +11,7 @@ using Arcflix.NativeCallsInterfaces;
 using Arcflix.Views;
 
 using Xamarin.Forms;
+using MoviesPage = Arcflix.Views.Movies.MoviesPage;
 
 namespace Arcflix.ViewModels
 {

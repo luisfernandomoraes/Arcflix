@@ -5,6 +5,7 @@ using Arcflix.Models;
 using Arcflix.Services.DB;
 using Arcflix.Views;
 using Xamarin.Forms;
+using MoviesPage = Arcflix.Views.Movies.MoviesPage;
 
 namespace Arcflix.ViewModels
 {

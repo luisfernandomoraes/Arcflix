@@ -67,6 +67,7 @@
     <Compile Include="Services\ILoginManager.cs" />
     <Compile Include="Services\LoginModalPage.cs" />
     <Compile Include="Services\MovieDataStore.cs" />
+    <Compile Include="Services\ShowDataStore.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ItemDetailViewModel.cs" />
@@ -80,10 +81,10 @@
     <Compile Include="Views\ItemDetailPage.xaml.cs">
       <DependentUpon>ItemDetailPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MovieDetailPage.xaml.cs">
+    <Compile Include="Views\Movies\MovieDetailPage.xaml.cs">
       <DependentUpon>MovieDetailPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MoviesPage.xaml.cs">
+    <Compile Include="Views\Movies\MoviesPage.xaml.cs">
       <DependentUpon>MoviesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginPage.xaml.cs">
@@ -112,7 +113,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\MoviesPage.xaml">
+    <EmbeddedResource Include="Views\Movies\MoviesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -197,7 +198,7 @@
     <EmbeddedResource Include="Videos\video.mp4" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\MovieDetailPage.xaml">
+    <EmbeddedResource Include="Views\Movies\MovieDetailPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

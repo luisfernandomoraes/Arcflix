@@ -55,5 +55,10 @@ namespace Arcflix.Services.Api
                 return result;
             }
         }
+
+        public Task<Show> GetShowDetailsAsync(int showId, string language)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

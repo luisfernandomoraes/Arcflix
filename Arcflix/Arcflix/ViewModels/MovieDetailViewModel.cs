@@ -82,11 +82,27 @@ namespace Arcflix.ViewModels
             MovieDetail = movie;
             ToolBarItemIcon = "ic_bookmark_24dp.png";
             Task.Run(async () => await LoadDataAsync());
+            SetIconToolBar();
         }
 
         #endregion
 
         #region Methods
+
+
+        private void SetIconToolBar()
+        {
+            try
+            {
+                var movieFromDB = Services.DB.ArcflixDBContext.MovieDataBase.GetItems()
+                    .FirstOrDefault(x => x.IDApi == MovieDetail.Id);
+                ToolBarItemIcon = movieFromDB == null ? "ic_bookmark_24dp.png" : "ic_bookmark_white_24dp.png";
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+        }
 
         public async Task LoadDataAsync()
         {

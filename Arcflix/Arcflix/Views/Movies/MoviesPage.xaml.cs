@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Net.TMDb;
-using Arcflix.Models;
 using Arcflix.ViewModels;
-
 using Xamarin.Forms;
 
-namespace Arcflix.Views
+namespace Arcflix.Views.Movies
 {
     public partial class MoviesPage : ContentPage
     {

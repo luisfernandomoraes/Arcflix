@@ -7,6 +7,7 @@ using Arcflix.Views;
 using Plugin.Toasts;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using MoviesPage = Arcflix.Views.Movies.MoviesPage;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Arcflix

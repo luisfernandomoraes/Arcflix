@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.TMDb;
 using System.Threading;
 using System.Threading.Tasks;
-
-using Arcflix.Models;
 using Arcflix.Services.Api;
 using Xamarin.Forms;
 
@@ -101,6 +98,7 @@ namespace Arcflix.Services
 
         private async Task<Movies> GetItemsByPage(int index = 1)
         {
+            
             _clientTmDb = _clientTmDb ?? new ServiceClient("1f54bd990f1cdfb230adb312546d765d");
             Movies movies = await _clientTmDb.Movies.GetUpcomingAsync("en-US", index, new CancellationToken());
             return await Task.FromResult(movies);
