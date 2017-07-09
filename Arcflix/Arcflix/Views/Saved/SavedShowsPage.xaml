@@ -24,7 +24,7 @@
                 x:Name="searchBarShows"
                 FontSize="Small"
                 IsVisible="{Binding IsVisibleSearchBar, Mode=TwoWay}"
-                Placeholder="Search"
+                Placeholder="Search in movies saved"
                 SearchCommand="{Binding FilterShowsCommand}"
                 Text="{Binding Filter, Mode=TwoWay}">
                 <SearchBar.PlaceholderColor>

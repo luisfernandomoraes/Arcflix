@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using Arcflix.Helpers;
 using SQLite.Net.Attributes;
 
 namespace Arcflix.Models
 {
-    public class MovieModel : IModel
+    public class MovieModel : ObservableObject, IModel
     {
+        private bool _isAdded;
+
         [PrimaryKey, AutoIncrement]
 
         public int ID { get; set; }
@@ -28,6 +33,12 @@ namespace Arcflix.Models
         public string TagLine { get; set;}
         public string OriginalTitle { get; set;}
         public string Title { get; set;}
+
+        public bool IsAdded
+        {
+            get => _isAdded;
+            set => SetProperty(ref _isAdded, value);
+        }
 
         public static MovieModel MovieApiToMovieModel(System.Net.TMDb.Movie movie)
         {
@@ -56,5 +67,18 @@ namespace Arcflix.Models
 
             return movieModel;
         }
+
+        public static IEnumerable<MovieModel> MovieListApiToMovieModelList(IEnumerable<System.Net.TMDb.Movie> movies)
+        {
+            var moviesResult = new List<MovieModel>();
+            foreach (var movie in movies)
+            {
+                var movieModel = MovieApiToMovieModel(movie);
+                moviesResult.Add(movieModel);
+            }
+            return moviesResult;
+        }
+
+        
     }
 }

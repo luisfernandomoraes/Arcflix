@@ -24,7 +24,7 @@
                 x:Name="searchBarMovies"
                 FontSize="Small"
                 IsVisible="{Binding IsVisibleSearchBar, Mode=TwoWay}"
-                Placeholder="Search"
+                Placeholder="Search in movies saved"
                 SearchCommand="{Binding FilterMoviesCommand}"
                 Text="{Binding Filter, Mode=TwoWay}">
                 <SearchBar.PlaceholderColor>
@@ -84,18 +84,26 @@
                                             Source="{Binding Poster, StringFormat='https://image.tmdb.org/t/p/w185_and_h278_bestv2{0:N}'}"
                                             VerticalOptions="FillAndExpand" />
 
-
-                                        <Label
-                                            x:Name="LblTitulo"
+                                        <StackLayout
                                             Grid.Row="0"
                                             Grid.Column="2"
-                                            FontSize="Medium"
-                                            HorizontalOptions="Start"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="TailTruncation"
-                                            Text="{Binding Title}"
-                                            TextColor="#E06A00"
-                                            VerticalOptions="FillAndExpand" />
+                                            Grid.ColumnSpan="1"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <Label
+                                                x:Name="LblTitulo"
+                                                FontSize="Medium"
+                                                HorizontalOptions="Start"
+                                                HorizontalTextAlignment="Start"
+                                                LineBreakMode="TailTruncation"
+                                                Text="{Binding Title}"
+                                                TextColor="#E06A00"
+                                                VerticalOptions="FillAndExpand" />
+                                            <Image
+                                                HorizontalOptions="EndAndExpand"
+                                                Opacity="0.75"
+                                                Source="ic_bookmark_black_18dp.png" />
+                                        </StackLayout>
 
                                         <controls:HeaderDivider Grid.Row="1" Grid.Column="1" />
 

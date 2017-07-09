@@ -74,7 +74,10 @@
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
 
-
+                                        <Label
+                                            x:Name="lblId"
+                                            IsVisible="False"
+                                            Text="{Binding Id}" />
                                         <Image
                                             Grid.Row="0"
                                             Grid.RowSpan="4"
@@ -85,17 +88,27 @@
                                             VerticalOptions="FillAndExpand" />
 
 
-                                        <Label
-                                            x:Name="LblTitulo"
+                                        <StackLayout
                                             Grid.Row="0"
                                             Grid.Column="2"
-                                            FontSize="Medium"
-                                            HorizontalOptions="Start"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="TailTruncation"
-                                            Text="{Binding Title}"
-                                            TextColor="#E06A00"
-                                            VerticalOptions="FillAndExpand" />
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <Label
+                                                x:Name="LblTitulo"
+                                                FontSize="Medium"
+                                                HorizontalOptions="Start"
+                                                HorizontalTextAlignment="Start"
+                                                LineBreakMode="TailTruncation"
+                                                Text="{Binding Title}"
+                                                TextColor="#E06A00"
+                                                VerticalOptions="FillAndExpand" />
+                                            <Image
+                                                x:Name="imgSaved"
+                                                HorizontalOptions="EndAndExpand"
+                                                IsVisible="{Binding IsAdded, Mode=TwoWay}"
+                                                Opacity="0.75"
+                                                Source="ic_bookmark_black_18dp.png" />
+                                        </StackLayout>
 
                                         <controls:HeaderDivider Grid.Row="1" Grid.Column="1" />
 

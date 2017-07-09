@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Net.TMDb;
+using Arcflix.Models;
 using Arcflix.ViewModels;
 using Arcflix.ViewModels.Movies;
 using Xamarin.Forms;
@@ -21,7 +22,7 @@ namespace Arcflix.Views.Movies
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            var item = args.SelectedItem as Movie;
+            var item = args.SelectedItem as MovieModel;
             if (item == null)
                 return;
 

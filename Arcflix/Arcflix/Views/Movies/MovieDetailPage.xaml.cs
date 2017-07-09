@@ -1,4 +1,5 @@
 ﻿using System.Net.TMDb;
+using Arcflix.Models;
 using Arcflix.ViewModels;
 using Arcflix.ViewModels.Movies;
 using Xamarin.Forms;
@@ -11,7 +12,7 @@ namespace Arcflix.Views.Movies
     {
         MovieDetailViewModel _viewModel;
 
-        public MovieDetailPage(Movie movie)
+        public MovieDetailPage(MovieModel movie)
         {
             InitializeComponent();
            BindingContext = _viewModel = new MovieDetailViewModel(movie);

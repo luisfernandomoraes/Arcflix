@@ -23,7 +23,7 @@ namespace Arcflix.ViewModels.Movies
         private readonly MoviesPage _moviesPage;
         private string _filter;
         private IKeyboardInteractions _keyboardInteractions;
-        private ObservableRangeCollection<Movie> _movies;
+        private ObservableRangeCollection<MovieModel> _movies;
 
         #endregion
 
@@ -77,7 +77,7 @@ namespace Arcflix.ViewModels.Movies
                             }
                             else
                             {
-                                List<Movie> filteredMovies;
+                                List<MovieModel> filteredMovies;
                                 if (MoviesBackup.Count != 0)
                                     filteredMovies = MoviesBackup.Where(x => x.Title.ToLower()
                                         .Contains(Filter.ToLower())).ToList();
@@ -113,9 +113,14 @@ namespace Arcflix.ViewModels.Movies
                 Movies.Clear();
                 _pageIndex = 1;
                 var items = await MovieDataStore.GetItemsAsync(true);
-                if(MoviesBackup.Count == 0)
-                    MoviesBackup.AddRange(items);
-                Movies.ReplaceRange(items);
+                var movies = MovieModel.MovieListApiToMovieModelList(items);
+                foreach (var movieModel in movies)
+                {
+                    movieModel.IsAdded = MovieDetailViewModel.IsMovieSaved(movieModel.IDApi);
+                }
+                if (MoviesBackup.Count == 0)
+                    MoviesBackup.AddRange(movies);
+                Movies.ReplaceRange(movies);
                 Filter = string.Empty;
                 IsVisibleSearchBar = false;
             }
@@ -139,13 +144,13 @@ namespace Arcflix.ViewModels.Movies
 
         #region Properties
 
-        public ObservableRangeCollection<Movie> Movies
+        public ObservableRangeCollection<MovieModel> Movies
         {
             get => _movies;
             set => SetProperty(ref _movies, value);
         }
 
-        public List<Movie> MoviesBackup { get; set; }
+        public List<MovieModel> MoviesBackup { get; set; }
 
         public bool IsVisibleSearchBar
         {
@@ -169,14 +174,16 @@ namespace Arcflix.ViewModels.Movies
         public MoviesViewModel(MoviesPage moviesPage)
         {
             Title = "Upcoming Movies";
-            Movies = new ObservableRangeCollection<Movie>();
-            MoviesBackup = new List<Movie>();
+            Movies = new ObservableRangeCollection<MovieModel>();
+            MoviesBackup = new List<MovieModel>();
             _pageIndex = 1;
             _moviesPage = moviesPage;
             _keyboardInteractions = DependencyService.Get<IKeyboardInteractions>();
         }
 
         #endregion
+
+        #region Methods
 
         public async Task LoadMore()
         {
@@ -187,10 +194,19 @@ namespace Arcflix.ViewModels.Movies
                 var enumerable = itens as Movie[] ?? itens.ToArray();
                 if (enumerable.Any())
                 {
-                    Movies.AddRange(enumerable);
-                    MoviesBackup.AddRange(enumerable);
+                    var movies = MovieModel.MovieListApiToMovieModelList(enumerable);
+                    foreach (var movieModel in movies)
+                    {
+                        movieModel.IsAdded = MovieDetailViewModel.IsMovieSaved(movieModel.IDApi);
+                    }
+                    Movies.AddRange(movies);
+                    MoviesBackup.AddRange(movies);
                 }
             }
         }
+
+       
+
+        #endregion
     }
 }
