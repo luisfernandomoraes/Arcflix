@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Arcflix.Helpers;
 using Arcflix.Models;
+using Arcflix.NativeCallsInterfaces;
 using Arcflix.Views;
 
 using Xamarin.Forms;
@@ -21,8 +22,8 @@ namespace Arcflix.ViewModels
         private bool _isVisibleSearchBar;
         private readonly MoviesPage _moviesPage;
         private string _filter;
-        private bool _canShowListView;
-        private bool _canShowFilterListView;
+        private IKeyboardInteractions _keyboardInteractions;
+        private ObservableRangeCollection<Movie> _movies;
 
         #endregion
 
@@ -36,9 +37,9 @@ namespace Arcflix.ViewModels
                 if (!IsVisibleSearchBar)
                 {
                     Filter = string.Empty;
-                    CanShowListView = true;
-                    CanShowFilterListView = false;
-                    //Device.OnPlatform(Android: () => _hidingKeyboard.HideKeyboard());
+#pragma warning disable 618
+                    Device.OnPlatform(Android: () => _keyboardInteractions.HideKeyboard());
+#pragma warning restore 618
                     _moviesPage.SearchBarMovies.Unfocus();
                 }
                 else
@@ -59,29 +60,39 @@ namespace Arcflix.ViewModels
         {
             await Task.Run(() =>
             {
-                IsBusy = true;
-                if (string.IsNullOrEmpty(Filter) && IsVisibleSearchBar)
-                {
-                    CanShowListView = true;
-                    CanShowFilterListView = false;
+                Device.BeginInvokeOnMainThread(() =>
+                    {
+                        try
+                        {
 
-                    //Device.OnPlatform(Android: () => _hidingKeyboard.HideKeyboard());
-                    _moviesPage.SearchBarMovies.Unfocus();
-                    IsVisibleSearchBar = false;
-
-                }
-                else
-                {
-                    CanShowListView = false;
-                    CanShowFilterListView = true;
-                }
-
-                /*CatalogPricesFiltered =
-                    new ObservableCollection<CatalogPrice>(
-                        CatalogPrices.Where(x => x.ProductName.ToLower().Contains(Filter.ToLower())));*/
+                            IsBusy = true;
+                            if (string.IsNullOrEmpty(Filter) && IsVisibleSearchBar)
+                            {
 
 
-                IsBusy = false;
+#pragma warning disable 618
+                                Device.OnPlatform(Android: () => _keyboardInteractions.HideKeyboard());
+#pragma warning restore 618
+
+                                _moviesPage.SearchBarMovies.Unfocus();
+                                IsVisibleSearchBar = false;
+                                Task.Run(async () => await ExecuteLoadItemsCommand());
+                            }
+                            else
+                            {
+                                Movies = new ObservableRangeCollection<Movie>(Movies.Where(x => x.Title.ToLower()
+                                    .Contains(Filter.ToLower())));
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.WriteLine(e.ToString());
+                        }
+                        finally
+                        {
+                            IsBusy = false;
+                        }
+                    });
             });
         }
 
@@ -120,7 +131,12 @@ namespace Arcflix.ViewModels
 
         #region Properties
 
-        public ObservableRangeCollection<Movie> Movies { get; set; }
+        public ObservableRangeCollection<Movie> Movies
+        {
+            get => _movies;
+            set => SetProperty(ref _movies, value);
+        }
+
         public bool IsVisibleSearchBar
         {
             get => _isVisibleSearchBar;
@@ -136,17 +152,6 @@ namespace Arcflix.ViewModels
                 Task.Run(() => FilterPromotionsAsync());
             }
         }
-        public bool CanShowListView
-        {
-            get => _canShowListView;
-            set => SetProperty(ref _canShowListView,value); 
-        }
-
-        public bool CanShowFilterListView
-        {
-            get => _canShowFilterListView;
-            set => SetProperty(ref _canShowFilterListView,value);
-        }
         #endregion
 
         #region Constructor
@@ -157,6 +162,7 @@ namespace Arcflix.ViewModels
             Movies = new ObservableRangeCollection<Movie>();
             _pageIndex = 1;
             _moviesPage = moviesPage;
+            _keyboardInteractions = DependencyService.Get<IKeyboardInteractions>();
         }
 
         #endregion
@@ -173,6 +179,6 @@ namespace Arcflix.ViewModels
             }
         }
 
-        
+
     }
 }

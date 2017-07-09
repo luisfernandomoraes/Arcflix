@@ -22,7 +22,7 @@
                 <RowDefinition Height="3*" />
                 <RowDefinition Height="3*" />
                 <RowDefinition Height="2*" />
-                <RowDefinition Height="2*" />
+                <RowDefinition Height="3*" />
                 <RowDefinition Height="2*" />
                 <RowDefinition Height="2*" />
                 <RowDefinition Height="2*" />
@@ -97,7 +97,6 @@
                 Grid.RowSpan="2"
                 Grid.Column="1"
                 Grid.ColumnSpan="5"
-                FontAttributes="Italic"
                 HorizontalOptions="FillAndExpand"
                 Text="{Binding MovieDetail.Overview}"
                 VerticalOptions="FillAndExpand" />

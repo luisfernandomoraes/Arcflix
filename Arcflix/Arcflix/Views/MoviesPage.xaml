@@ -13,8 +13,10 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <!--<ToolbarItem Clicked="AddItem_Clicked" Text="Add Item" />-->
-        <ToolbarItem Icon="search_icon.png" Text="Add Item" />
+        <ToolbarItem
+            Command="{Binding RequestSearchCommand}"
+            Icon="search_icon.png"
+            Text="Add Item" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
@@ -50,7 +52,7 @@
                 IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                 ItemAppearing="ItemsListView_OnItemAppearing"
                 ItemSelected="OnItemSelected"
-                ItemsSource="{Binding Movies}"
+                ItemsSource="{Binding Movies, Mode=TwoWay}"
                 RefreshCommand="{Binding LoadItemsCommand}"
                 SeparatorColor="Transparent"
                 VerticalOptions="FillAndExpand">
