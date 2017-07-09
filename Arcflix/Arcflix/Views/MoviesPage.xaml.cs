@@ -44,7 +44,7 @@ namespace Arcflix.Views
         private async void ItemsListView_OnItemAppearing(object sender, ItemVisibilityEventArgs e)
         {
             var items = this.ItemsListView.ItemsSource as IList;
-            if (items != null && e.Item == _viewModel.Movies[items.Count - 1])
+            if (items != null && e.Item == _viewModel.Movies[items.Count - 1] && string.IsNullOrEmpty(_viewModel.Filter))
             {
                 await _viewModel.LoadMore();
             }

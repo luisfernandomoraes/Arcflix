@@ -58,9 +58,7 @@ namespace Arcflix.ViewModels
 
         private async Task FilterPromotionsAsync()
         {
-            await Task.Run(() =>
-            {
-                Device.BeginInvokeOnMainThread(() =>
+            Device.BeginInvokeOnMainThread(async () =>
                     {
                         try
                         {
@@ -75,25 +73,29 @@ namespace Arcflix.ViewModels
 #pragma warning restore 618
 
                                 _moviesPage.SearchBarMovies.Unfocus();
+                                var items = await MovieDataStore.GetItemsAsync(true);
+                                Movies.ReplaceRange(items);
+                                Filter = string.Empty;
                                 IsVisibleSearchBar = false;
-                                Task.Run(async () => await ExecuteLoadItemsCommand());
                             }
                             else
                             {
-                                Movies = new ObservableRangeCollection<Movie>(Movies.Where(x => x.Title.ToLower()
-                                    .Contains(Filter.ToLower())));
+                                var filteredMovies = Movies.Where(x => x.Title.ToLower()
+                                    .Contains(Filter.ToLower())).ToList();
+
+                                Movies.ReplaceRange(filteredMovies);
                             }
                         }
                         catch (Exception e)
                         {
                             Debug.WriteLine(e.ToString());
+                            Task.Run(async () => await ExecuteLoadItemsCommand());
                         }
                         finally
                         {
                             IsBusy = false;
                         }
                     });
-            });
         }
 
         public ICommand LoadItemsCommand => new Command(async () => await ExecuteLoadItemsCommand());
@@ -110,6 +112,8 @@ namespace Arcflix.ViewModels
                 _pageIndex = 1;
                 var items = await MovieDataStore.GetItemsAsync(true);
                 Movies.ReplaceRange(items);
+                Filter = string.Empty;
+                IsVisibleSearchBar = false;
             }
             catch (Exception ex)
             {
