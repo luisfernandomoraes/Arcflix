@@ -43,7 +43,7 @@
                     Command="{Binding NavigationCommand}"
                     CommandParameter="1"
                     Icon="fa-television"
-                    Text="Upcoming Series" />
+                    Text="Upcoming TV Shows" />
                 <views:NavigationItem
                     Command="{Binding NavigationCommand}"
                     CommandParameter="1"
