@@ -29,21 +29,21 @@ namespace Arcflix.ViewModels.Shows
         {
             try
             {
-                var movieFromDB = Arcflix.Services.DB.ArcflixDBContext.ShowDataBase.GetItems()
+                var showFromDB = Arcflix.Services.DB.ArcflixDBContext.ShowDataBase.GetItems()
                     .FirstOrDefault(x => x.IDApi == ShowDetail.Id);
-                if (movieFromDB != null)
+                if (showFromDB != null)
                 {
                     ToolBarItemIcon = "ic_bookmark_24dp.png";
-                    Arcflix.Services.DB.ArcflixDBContext.ShowDataBase.DeleteItem(movieFromDB.ID);
-                    App.ShowToast(ToastNotificationType.Success, "Arcflix", "movie removed!", 3);
+                    Arcflix.Services.DB.ArcflixDBContext.ShowDataBase.DeleteItem(showFromDB.ID);
+                    App.ShowToast(ToastNotificationType.Success, "Arcflix", "show removed!", 3);
 
                 }
                 else
                 {
                     ToolBarItemIcon = "ic_bookmark_white_24dp.png";
-                    var movieModel = ShowModel.ShowApiToShowModel(ShowDetail);
-                    Arcflix.Services.DB.ArcflixDBContext.ShowDataBase.SaveItem(movieModel);
-                    App.ShowToast(ToastNotificationType.Success, "Arcflix", "movie saved!", 3);
+                    var showModel = ShowModel.ShowApiToShowModel(ShowDetail);
+                    Arcflix.Services.DB.ArcflixDBContext.ShowDataBase.SaveItem(showModel);
+                    App.ShowToast(ToastNotificationType.Success, "Arcflix", "show saved!", 3);
                     
                 }
 
@@ -76,10 +76,10 @@ namespace Arcflix.ViewModels.Shows
 
         #region Constructor
 
-        public ShowDetailViewModel(Show movie)
+        public ShowDetailViewModel(Show show)
         {
             Title = "Show Details";
-            ShowDetail = movie;
+            ShowDetail = show;
             ToolBarItemIcon = "ic_bookmark_24dp.png";
             Task.Run(async () => await LoadDataAsync());
             SetIconToolBar();
@@ -94,9 +94,9 @@ namespace Arcflix.ViewModels.Shows
         {
             try
             {
-                var movieFromDB = Services.DB.ArcflixDBContext.ShowDataBase.GetItems()
+                var showFromDB = Services.DB.ArcflixDBContext.ShowDataBase.GetItems()
                     .FirstOrDefault(x => x.IDApi == ShowDetail.Id);
-                ToolBarItemIcon = movieFromDB == null ? "ic_bookmark_24dp.png" : "ic_bookmark_white_24dp.png";
+                ToolBarItemIcon = showFromDB == null ? "ic_bookmark_24dp.png" : "ic_bookmark_white_24dp.png";
             }
             catch (Exception e)
             {

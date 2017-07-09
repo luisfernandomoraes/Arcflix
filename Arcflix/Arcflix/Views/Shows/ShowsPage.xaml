@@ -106,7 +106,7 @@
                                             FontSize="Small"
                                             HorizontalOptions="StartAndExpand"
                                             HorizontalTextAlignment="Start"
-                                            Text="{Binding LastAirDate, StringFormat='Last air Date: {0:dd/MM/yyyy}'}"
+                                            Text="{Binding FirstAirDate, StringFormat='First air Date: {0:dd/MM/yyyy}'}"
                                             VerticalOptions="EndAndExpand" />
 
                                         <Label

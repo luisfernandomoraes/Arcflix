@@ -13,15 +13,12 @@ namespace Arcflix.Models
         public int VoteCount { get; set; }
         public decimal VoteAverage { get; set; }
         public decimal Popularity { get; set; }
-        public IEnumerable<string> Languages { get; set; }
         public int SeasonCount { get; set; }
         public string Status { get; set; }
         public int EpisodeCount { get; set; }
         public string HomePage { get; set; }
         public DateTime? LastAirDate { get; set; }
         public DateTime? FirstAirDate { get; set; }
-        public IEnumerable<int> EpisodeRuntimes { get; set; }
-        public IEnumerable<string> Countries { get; set; }
         public string Backdrop { get; set; }
         public string Poster { get; set; }
         public string Overview { get; set; }
@@ -35,7 +32,6 @@ namespace Arcflix.Models
             {
                 IDApi = show.Id,
                 Name = show.Name,
-                Languages = show.Languages,
                 Backdrop = show.Backdrop,
                 SeasonCount = show.SeasonCount,
                 HomePage = show.HomePage,
@@ -46,8 +42,6 @@ namespace Arcflix.Models
                 Popularity = show.Popularity,
                 Poster = show.Poster,
                 FirstAirDate = show.FirstAirDate,
-                EpisodeRuntimes = show.EpisodeRuntimes,
-                Countries = show.Countries,
                 Status = show.Status,
                 OriginalName = show.OriginalName,
                 VoteAverage = show.VoteAverage,
