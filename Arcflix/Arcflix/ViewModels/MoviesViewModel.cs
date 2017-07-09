@@ -192,7 +192,5 @@ namespace Arcflix.ViewModels
                 }
             }
         }
-
-
     }
 }

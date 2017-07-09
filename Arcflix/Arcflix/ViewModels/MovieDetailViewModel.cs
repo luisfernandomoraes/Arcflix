@@ -4,22 +4,72 @@ using System.Linq;
 using System.Net.TMDb;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Arcflix.Models;
 using Arcflix.Services;
+using Plugin.Toasts;
+using Xamarin.Forms;
 
 namespace Arcflix.ViewModels
 {
-    public class MovieDetailViewModel:BaseViewModel
+    public class MovieDetailViewModel : BaseViewModel
     {
+        #region Fields
+
         private string _genders;
+        private string _toolBarItemIcon;
+
+        #endregion
+
+        #region Commands
+
+        public ICommand SaveMovieCommand => new Command(SaveMovie);
+
+        private void SaveMovie(object obj)
+        {
+            try
+            {
+                var movieFromDB = Arcflix.Services.DB.ArcflixDBContext.MovieDataBase.GetItems()
+                    .FirstOrDefault(x => x.IDApi == MovieDetail.Id);
+                if (movieFromDB != null)
+                {
+                    ToolBarItemIcon = "ic_bookmark_24dp.png";
+                    Arcflix.Services.DB.ArcflixDBContext.MovieDataBase.DeleteItem(movieFromDB.ID);
+                    App.ShowToast(ToastNotificationType.Success, "Arcflix", "movie removed!", 3);
+
+                }
+                else
+                {
+                    ToolBarItemIcon = "ic_bookmark_white_24dp.png";
+                    var movieModel = MovieModel.MovieApiToMovieModel(MovieDetail);
+                    Arcflix.Services.DB.ArcflixDBContext.MovieDataBase.SaveItem(movieModel);
+                    App.ShowToast(ToastNotificationType.Success, "Arcflix", "movie saved!", 3);
+                    
+                }
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+        }
+
+        #endregion
 
         #region Properties
 
         public Movie MovieDetail { get; private set; }
 
+        public string ToolBarItemIcon
+        {
+            get => _toolBarItemIcon;
+            set => SetProperty(ref _toolBarItemIcon, value);
+        }
+
         public string Genders
         {
             get => _genders;
-            set => SetProperty(ref _genders,value);
+            set => SetProperty(ref _genders, value);
         }
 
         #endregion
@@ -30,14 +80,15 @@ namespace Arcflix.ViewModels
         {
             Title = "Movie Details";
             MovieDetail = movie;
-            Task.Run(async()=> await LoadDataAsync());
+            ToolBarItemIcon = "ic_bookmark_24dp.png";
+            Task.Run(async () => await LoadDataAsync());
         }
 
         #endregion
 
         #region Methods
 
-        public async Task  LoadDataAsync()
+        public async Task LoadDataAsync()
         {
             try
             {
@@ -47,12 +98,12 @@ namespace Arcflix.ViewModels
                     var builder = new StringBuilder();
                     var genderList = MovieDetail.Genres.Select(x => x.Name).ToArray();
                     var length = genderList.Length;
-                    for (var i = 0;i< length; i++)
+                    for (var i = 0; i < length; i++)
                     {
                         if (i == length - 1)
-                            builder.Append(genderList[i]+".");
+                            builder.Append(genderList[i] + ".");
                         else
-                            builder.Append(genderList[i]+", ");
+                            builder.Append(genderList[i] + ", ");
 
                     }
                     Genders = builder.ToString();

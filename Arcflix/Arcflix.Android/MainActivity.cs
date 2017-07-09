@@ -59,6 +59,7 @@ namespace Arcflix.Droid
             Plugin.Iconize.Iconize.With(new Plugin.Iconize.Fonts.FontAwesomeModule());
             FormsPlugin.Iconize.Droid.IconControls.Init();
             CallbackManager = CallbackManagerFactory.Create();
+            DependencyService.Register<ToastNotificatorImplementation>(); // Register your dependency
             ToastNotificatorImplementation.Init(this);
             ImageCircleRenderer.Init();
             FormsVideoPlayer.Init("CA185EF5ADE718EB678231E51058A935FE633A55");

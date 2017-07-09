@@ -54,6 +54,7 @@
     <Compile Include="Models\BaseDataObject.cs" />
     <Compile Include="Models\IModel.cs" />
     <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\MovieModel.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="NativeCallsInterfaces\IKeyboardInteractions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
