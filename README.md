@@ -1,5 +1,5 @@
 # Arcflix
-Code Challenge intermediate repository.
+ArcTouch's code challenge repository.
 
 ## Special build instructions:   
 
@@ -24,3 +24,8 @@ Code Challenge intermediate repository.
 * Xam.Plugins.Settings – To store user preferences/configurations.
 
 * Xam.Plugins.Forms.ImageCircle – To show a circle image.   
+
+### TODO Features (Missing time).
+
+- [] Create Xamarin.UITest.
+- [] Create Language translations resources.
