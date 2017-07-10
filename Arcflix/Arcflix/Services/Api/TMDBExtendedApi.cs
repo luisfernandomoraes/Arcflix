@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -72,6 +73,32 @@ namespace Arcflix.Services.Api
                 var content = await response.Content.ReadAsStringAsync();
 
                 result = JsonConvert.DeserializeObject<Show>(content);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+                return result;
+            }
+        }
+        public async Task<Season> GetSeasonAsync(int showId, int seasonNumber, string language)
+        {
+            Season result = null;
+            try
+            {
+                //tv/{tv_id}/season/{season_number}
+                string resourcePath = $@"{BaseAddress}/tv/{showId}/season/{seasonNumber}?api_key={_apiKey}&language={language}";
+
+                var uri = new Uri(resourcePath);
+
+                var response = await _client.GetAsync(uri);
+
+                if (!response.IsSuccessStatusCode) return null;
+
+                var content = await response.Content.ReadAsStringAsync();
+
+                result = JsonConvert.DeserializeObject<Season>(content);
 
                 return result;
             }

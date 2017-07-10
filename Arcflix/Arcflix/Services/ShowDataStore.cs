@@ -50,8 +50,9 @@ namespace Arcflix.Services
 
         public async Task<IEnumerable<Video>> GetItemVideoAsync(int id)
         {
-            var videos = await _clientTmDb.Movies.GetVideosAsync(id, Settings.Language, new CancellationToken());
-            return videos;
+            // not found in api.
+            return await Task.FromResult(new List<Video>());
+
         }
 
         public async Task<Show> GetItemAsync(int id, bool isGetDetails = false)

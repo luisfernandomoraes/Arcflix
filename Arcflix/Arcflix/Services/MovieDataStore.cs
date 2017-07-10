@@ -63,8 +63,8 @@ namespace Arcflix.Services
         {
             await InitializeAsync();
 
-            _tmdbExtendedApi = _tmdbExtendedApi ?? new TMDBExtendedApi("1f54bd990f1cdfb230adb312546d765d");
-            var movie = await _tmdbExtendedApi.GetMovieDetailsAsync(id, "en-US");
+            _tmdbExtendedApi = _tmdbExtendedApi ?? new TMDBExtendedApi(Settings.ApiKey);
+            var movie = await _tmdbExtendedApi.GetMovieDetailsAsync(id, Settings.Language);
             return await Task.FromResult(movie);
         }
 
@@ -106,7 +106,7 @@ namespace Arcflix.Services
         private async Task<Movies> GetItemsByPage(int index = 1)
         {
 
-            _clientTmDb = _clientTmDb ?? new ServiceClient("1f54bd990f1cdfb230adb312546d765d");
+            _clientTmDb = _clientTmDb ?? new ServiceClient(Settings.ApiKey);
             Movies movies = await _clientTmDb.Movies.GetUpcomingAsync(Settings.Language, index, new CancellationToken());
             return await Task.FromResult(movies);
         }
