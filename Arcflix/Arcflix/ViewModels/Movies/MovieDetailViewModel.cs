@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Arcflix.Models;
 using Arcflix.Services;
+using Arcflix.Views;
 using Plugin.Toasts;
+using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 
 namespace Arcflix.ViewModels.Movies
@@ -22,6 +24,28 @@ namespace Arcflix.ViewModels.Movies
         #endregion
 
         #region Commands
+        public ICommand WatchTrailerCommand => new Command(WatchTrailer);
+
+        private async void WatchTrailer(object obj)
+        {
+            try
+            {
+                var videos = await MovieDataStore.GetItemVideoAsync(MovieDetail.IDApi);
+                var enumerable = videos as Video[] ?? videos.ToArray();
+                if (!enumerable.Any())
+                {
+                    App.ShowToast(ToastNotificationType.Info, ":(", "Sorry, trailer unavailable.", 3);
+                }
+                else
+                {
+                    await PopupNavigation.PushAsync(new VideoPopupPage(enumerable.First().Key));
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+        }
 
         public ICommand SaveMovieCommand => new Command(SaveMovie);
 
@@ -47,7 +71,7 @@ namespace Arcflix.ViewModels.Movies
                     Arcflix.Services.DB.ArcflixDBContext.MovieDataBase.SaveItem(movieModel);
                     MovieDetail.IsAdded = true;
                     App.ShowToast(ToastNotificationType.Success, "Arcflix", "movie saved!", 3);
-                    
+
                 }
 
             }
@@ -145,5 +169,5 @@ namespace Arcflix.ViewModels.Movies
         #endregion
     }
 
-   
+
 }

@@ -48,6 +48,12 @@ namespace Arcflix.Services
             return await Task.FromResult(true);
         }
 
+        public async Task<IEnumerable<Video>> GetItemVideoAsync(int id)
+        {
+            var videos = await _clientTmDb.Movies.GetVideosAsync(id, Settings.Language, new CancellationToken());
+            return videos;
+        }
+
         public async Task<Show> GetItemAsync(int id, bool isGetDetails = false)
         {
             await InitializeAsync();
@@ -93,6 +99,7 @@ namespace Arcflix.Services
         {
 
             _clientTmDb = _clientTmDb ?? new ServiceClient(Settings.ApiKey);
+
             Shows shows = await _clientTmDb.Shows.GetPopularAsync(Settings.Language, index, new CancellationToken());
             return await Task.FromResult(shows);
         }

@@ -104,7 +104,14 @@
                 HorizontalOptions="FillAndExpand"
                 Text="{Binding MovieDetail.Overview}"
                 VerticalOptions="FillAndExpand" />
-
+            <Button
+                Grid.Row="6"
+                Grid.Column="1"
+                Grid.ColumnSpan="5"
+                BackgroundColor="{DynamicResource PrimaryDark}"
+                Command="{Binding WatchTrailerCommand}"
+                Text="Watch trailer"
+                TextColor="White" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>
