@@ -38,7 +38,10 @@ namespace Arcflix.ViewModels.Movies
                 }
                 else
                 {
-                    await PopupNavigation.PushAsync(new VideoPopupPage(enumerable.First().Key));
+                    var video = videos.Where(x => x.Type.ToLower() == "trailer").OrderByDescending(x => x.Size)
+                        .FirstOrDefault();
+
+                    await PopupNavigation.PushAsync(new VideoPopupPage(video.Key));
                 }
             }
             catch (Exception e)
