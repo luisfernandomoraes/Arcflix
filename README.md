@@ -1,11 +1,11 @@
 # Arcflix
 Code Challenge intermediate repository.
 
-#Special build instructions:   
+## Special build instructions:   
 
 * Just restore nuget packages.
 
-#Componentes de Terceiros: 
+## Componentes de Terceiros: 
 
 * Hasseware.TheMovieDB – For access TMDb API.
 
@@ -23,4 +23,4 @@ Code Challenge intermediate repository.
 
 * Xam.Plugins.Settings – To store user preferences/configurations.
 
-*Xam.Plugins.Forms.ImageCircle – To show a circle image.   
+* Xam.Plugins.Forms.ImageCircle – To show a circle image.   
