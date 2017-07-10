@@ -25,7 +25,7 @@ ArcTouch's code challenge repository.
 
 * Xam.Plugins.Forms.ImageCircle – To show a circle image.   
 
-### TODO Features (Missing time).
+### TODO Features (missing time).
 
 - [ ] Create Xamarin.UITest.
 - [ ] Create Language translations resources.
