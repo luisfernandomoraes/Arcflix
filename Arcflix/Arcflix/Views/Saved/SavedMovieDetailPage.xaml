@@ -24,13 +24,13 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*" />
                 <RowDefinition Height="3*" />
-                <RowDefinition Height="2*" />
+                <RowDefinition Height="4*" />
                 <RowDefinition Height="3*" />
                 <RowDefinition Height="2*" />
                 <RowDefinition Height="2*" />
                 <RowDefinition Height="2*" />
+                <RowDefinition Height="48" />
             </Grid.RowDefinitions>
-
             <Image
                 Grid.Row="0"
                 Grid.RowSpan="2"
@@ -95,16 +95,27 @@
                     VerticalOptions="FillAndExpand" />
             </StackLayout>
 
-
-            <Label
+            <StackLayout
                 Grid.Row="4"
-                Grid.RowSpan="2"
+                Grid.RowSpan="3"
                 Grid.Column="1"
                 Grid.ColumnSpan="5"
-                HorizontalOptions="FillAndExpand"
-                Text="{Binding MovieDetail.Overview}"
-                VerticalOptions="FillAndExpand" />
-
+                VerticalOptions="FillAndExpand">
+                <ScrollView>
+                    <Label
+                        HorizontalOptions="FillAndExpand"
+                        Text="{Binding MovieDetail.Overview}"
+                        VerticalOptions="FillAndExpand" />
+                </ScrollView>
+            </StackLayout>
+            <Button
+                Grid.Row="7"
+                Grid.Column="1"
+                Grid.ColumnSpan="5"
+                BackgroundColor="{DynamicResource PrimaryDark}"
+                Command="{Binding WatchTrailerCommand}"
+                Text="Watch trailer"
+                TextColor="White" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>
