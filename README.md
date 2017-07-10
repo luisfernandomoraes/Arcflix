@@ -27,5 +27,5 @@ ArcTouch's code challenge repository.
 
 ### TODO Features (Missing time).
 
-- [] Create Xamarin.UITest.
-- [] Create Language translations resources.
+- [ ] Create Xamarin.UITest.
+- [ ] Create Language translations resources.
