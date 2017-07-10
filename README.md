@@ -5,7 +5,7 @@ Code Challenge intermediate repository.
 
 * Just restore nuget packages.
 
-## Componentes de Terceiros: 
+## Third-party Libraries: 
 
 * Hasseware.TheMovieDB – For access TMDb API.
 
