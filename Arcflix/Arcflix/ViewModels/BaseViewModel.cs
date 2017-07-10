@@ -10,7 +10,7 @@ namespace Arcflix.ViewModels
     public class BaseViewModel : ObservableObject
     {
         /// <summary>
-        /// Get the azure service instance
+        /// Get the api service instance
         /// </summary>
         public IDataStore<Movie> MovieDataStore => DependencyService.Get<IDataStore<Movie>>();
         public IDataStore<Show> ShowDataStore => DependencyService.Get<IDataStore<Show>>();
