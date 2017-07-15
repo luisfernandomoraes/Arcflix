@@ -15,7 +15,6 @@ namespace Arcflix.ViewModels
 
         private string _apiKey;
         private string _language;
-        private bool _allowSearchAdult;
 
         public string ApiKey
         {
@@ -40,8 +39,11 @@ namespace Arcflix.ViewModels
 
         private async void SelectLanguage(object obj)
         {
-            var result = await App.Current.MainPage.DisplayActionSheet("Language", "Cancel", "Ok", AvailableLanguages);
-            if (!string.IsNullOrEmpty(result))
+            string cancelText = "Cancel";
+            string okText = "OK";
+
+            var result = await App.Current.MainPage.DisplayActionSheet("Language", cancelText, okText, AvailableLanguages);
+            if (!string.IsNullOrEmpty(result) && cancelText != result && okText != result)
             {
                 Language = result;
             }
