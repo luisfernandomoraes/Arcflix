@@ -65,6 +65,28 @@ namespace Arcflix.Views
             }
         }
 
+        private bool _showSeparatorLine;
+
+        public bool ShowSeparatorLine
+        {
+            get { return _showSeparatorLine; }
+            set
+            {
+                _showSeparatorLine = value; 
+                OnPropertyChanged();
+            }
+        }
+        private object _pageType;
+
+        public object PageType
+        {
+            get { return _pageType; }
+            set
+            {
+                _pageType = value;
+                OnPropertyChanged();
+            }
+        }
         public static readonly BindableProperty TextProperty = BindableProperty.Create(
             nameof(Text),
             typeof(string),

@@ -9,7 +9,7 @@
     Title="{Binding Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converts:DescriptionToDescritpionSuspensionPoints x:Key="DescriptionToDescritpionSuspensionPoints" />
+            <converts:DescriptionToDescritpionSuspensionPointsConverter x:Key="DescriptionToDescritpionSuspensionPoints" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>

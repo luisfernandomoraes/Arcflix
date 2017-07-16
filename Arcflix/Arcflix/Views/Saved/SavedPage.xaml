@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:PrettyTabbedPage
+    x:Class="Arcflix.Views.Saved.SavedPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:Arcflix.Controls;assembly=Arcflix"
+    xmlns:saved="clr-namespace:Arcflix.Views.Saved;assembly=Arcflix"
+    Title="{Binding Title}"
+    ShowTitles="False">
+    <controls:PrettyTabbedPage.Children>
+        <saved:SavedMoviesPage Icon="saved_movies" SelectedIcon="saved_movies_selected" />
+        <saved:SavedShowsPage Icon="shows_saved" SelectedIcon="shows_saved_selected" />
+    </controls:PrettyTabbedPage.Children>
+</controls:PrettyTabbedPage>

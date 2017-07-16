@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace Arcflix.Converts
 {
-    public class DescriptionToDescritpionSuspensionPoints : IValueConverter
+    public class DescriptionToDescritpionSuspensionPointsConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

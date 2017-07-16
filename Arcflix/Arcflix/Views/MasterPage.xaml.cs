@@ -17,5 +17,12 @@ namespace Arcflix.Views
             InitializeComponent();
             BindingContext = new MasterViewModel();
         }
+
+        private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var navigationItem = e.SelectedItem as NavigationItem;
+            navigationItem?.Command.Execute(navigationItem.PageType);
+            MenuItensListView.SelectedItem = null;
+        }
     }
 }

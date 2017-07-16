@@ -9,12 +9,43 @@
         <ColumnDefinition Width="50" />
         <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <ContentView
+        Grid.Column="0"
+        Grid.ColumnSpan="2"
+        BackgroundColor="Gray"
+        HeightRequest="1"
+        IsVisible="{Binding ShowSeparatorLine}">
+        <ContentView.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding Command, Source={x:Reference this}}" CommandParameter="{Binding CommandParameter, Source={x:Reference this}}" />
+        </ContentView.GestureRecognizers>
+    </ContentView>
+
     <iconize:IconImage
+        Grid.Row="1"
         Grid.Column="0"
         Icon="{Binding Icon, Source={x:Reference this}}"
         IconColor="Gray"
-        IconSize="22" />
-    <Label Grid.Column="1" Text="{Binding Text, Source={x:Reference this}}" />
+        IconSize="22">
+        <iconize:IconImage.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding Command, Source={x:Reference this}}" CommandParameter="{Binding CommandParameter, Source={x:Reference this}}" />
+        </iconize:IconImage.GestureRecognizers>
+    </iconize:IconImage>
+
+    <Label
+        Grid.Row="1"
+        Grid.Column="1"
+        Text="{Binding Text, Source={x:Reference this}}">
+        <Label.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding Command, Source={x:Reference this}}" CommandParameter="{Binding CommandParameter, Source={x:Reference this}}" />
+        </Label.GestureRecognizers>
+    </Label>
+
+
     <Grid.GestureRecognizers>
         <TapGestureRecognizer Command="{Binding Command, Source={x:Reference this}}" CommandParameter="{Binding CommandParameter, Source={x:Reference this}}" />
     </Grid.GestureRecognizers>
