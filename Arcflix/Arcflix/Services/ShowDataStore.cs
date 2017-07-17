@@ -73,6 +73,11 @@ namespace Arcflix.Services
             return await Task.FromResult(shows.Results);
         }
 
+        public Task<IEnumerable<Show>> GetSearchResult(string searchText, int pageIndex = 1)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public async Task InitializeAsync()
         {
             if (_isInitialized)

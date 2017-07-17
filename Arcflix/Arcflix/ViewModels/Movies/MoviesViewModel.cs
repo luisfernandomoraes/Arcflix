@@ -58,7 +58,7 @@ namespace Arcflix.ViewModels.Movies
 
         private async Task FilterMoviesAsync()
         {
-            Device.BeginInvokeOnMainThread(() =>
+            Device.BeginInvokeOnMainThread(async () =>
                     {
                         try
                         {
@@ -82,8 +82,7 @@ namespace Arcflix.ViewModels.Movies
                                     filteredMovies = MoviesBackup.Where(x => x.Title.ToLower()
                                         .Contains(Filter.ToLower())).ToList();
                                 else
-                                    filteredMovies = Movies.Where(x => x.Title.ToLower()
-                                    .Contains(Filter.ToLower())).ToList();
+                                    filteredMovies = MovieModel.MovieListApiToMovieModelList(await MovieDataStore.GetSearchResult(Filter)).ToList();
 
                                 Movies.ReplaceRange(filteredMovies);
                             }
@@ -91,7 +90,7 @@ namespace Arcflix.ViewModels.Movies
                         catch (Exception e)
                         {
                             Debug.WriteLine(e.ToString());
-                            Task.Run(async () => await ExecuteLoadItemsCommand());
+                            await ExecuteLoadItemsCommand();
                         }
                         finally
                         {
@@ -118,8 +117,8 @@ namespace Arcflix.ViewModels.Movies
                 {
                     movieModel.IsAdded = MovieDetailViewModel.IsMovieSaved(movieModel.IDApi);
                 }
-                if (MoviesBackup.Count == 0)
-                    MoviesBackup.AddRange(movies);
+                //if (MoviesBackup.Count == 0)
+                //    MoviesBackup.AddRange(movies);
                 Movies.ReplaceRange(movies);
                 Filter = string.Empty;
                 IsVisibleSearchBar = false;
@@ -205,7 +204,25 @@ namespace Arcflix.ViewModels.Movies
             }
         }
 
-       
+        public async Task LoadMoreSearchResults()
+        {
+            ++_pageIndex;
+            var itens = await MovieDataStore.GetItemsAsync(true, _pageIndex);
+            if (itens != null)
+            {
+                var enumerable = itens as Movie[] ?? itens.ToArray();
+                if (enumerable.Any())
+                {
+                    var movies = MovieModel.MovieListApiToMovieModelList(enumerable);
+                    foreach (var movieModel in movies)
+                    {
+                        movieModel.IsAdded = MovieDetailViewModel.IsMovieSaved(movieModel.IDApi);
+                    }
+                    Movies.AddRange(movies);
+                    MoviesBackup.AddRange(movies);
+                }
+            }
+        }
 
         #endregion
     }

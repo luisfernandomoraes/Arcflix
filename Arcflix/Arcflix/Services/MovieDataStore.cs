@@ -78,6 +78,22 @@ namespace Arcflix.Services
 
         }
 
+        public async Task<IEnumerable<Movie>> GetSearchResult(string searchText, int pageIndex = 1)
+        {
+            await InitializeAsync();
+
+            var movies = await GetItemsOfSearchByPage(searchText,pageIndex);
+
+            return await Task.FromResult(movies.Results);
+        }
+
+        private async Task<Movies> GetItemsOfSearchByPage(string searchText, int index)
+        {
+            _clientTmDb = _clientTmDb ?? new ServiceClient(Settings.ApiKey);
+            Movies movies = await _clientTmDb.Movies.SearchAsync(searchText,Settings.Language,false,2017,true, index, new CancellationToken());
+            return await Task.FromResult(movies);
+        }
+
         public Task<bool> PullLatestAsync()
         {
             return Task.FromResult(true);

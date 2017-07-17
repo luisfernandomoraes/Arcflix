@@ -12,7 +12,7 @@ namespace Arcflix.Services
         Task<IEnumerable<Video>> GetItemVideoAsync(int id);
         Task<T> GetItemAsync(int id, bool isGetDetails = false);
         Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false, int pageIndex = 1);
-
+        Task<IEnumerable<T>> GetSearchResult(string searchText, int pageIndex = 1);
         Task InitializeAsync();
         Task<bool> PullLatestAsync();
         Task<bool> SyncAsync();
