@@ -134,12 +134,6 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Arcflix\Arcflix.csproj">
-      <Project>{48d1259f-eea8-4bae-bf99-89685869fe0a}</Project>
-      <Name>Arcflix</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
   </ItemGroup>
   <ItemGroup>

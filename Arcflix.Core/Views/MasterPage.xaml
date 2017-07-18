@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Arcflix.Views.MasterPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+    xmlns:saved="clr-namespace:Arcflix.Views.Saved;assembly=Arcflix"
+    xmlns:shows="clr-namespace:Arcflix.Views.Shows;assembly=Arcflix"
+    xmlns:views="clr-namespace:Arcflix.Views;assembly=Arcflix">
+    <ContentPage.Content>
+        <Grid BackgroundColor="Transparent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid>
+                <Image Aspect="AspectFill" Source="bg.png" />
+                <StackLayout
+                    Padding="0,20,0,0"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand">
+                    <abstractions:CircleImage
+                        Aspect="AspectFit"
+                        BorderColor="White"
+                        BorderThickness="2"
+                        HeightRequest="95"
+                        Source="{Binding ProfilePicture}"
+                        WidthRequest="95" />
+                    <Label
+                        FontSize="Large"
+                        Text="{Binding UserName}"
+                        TextColor="White" />
+                </StackLayout>
+            </Grid>
+            <ListView
+                x:Name="MenuItensListView"
+                Grid.Row="1"
+                Margin="20,20,20,0"
+                ItemSelected="ListView_OnItemSelected"
+                ItemsSource="{Binding NavigationMenuItens}"
+                SeparatorColor="Transparent">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout
+                                HorizontalOptions="CenterAndExpand"
+                                Spacing="15"
+                                VerticalOptions="Center">
+                                <views:NavigationItem
+                                    Command="{Binding Command}"
+                                    CommandParameter="{Binding PageType}"
+                                    Icon="{Binding Icon}"
+                                    Text="{Binding Text}" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Application
+    x:Class="Arcflix.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Primary">#E06A00</Color>
+            <Color x:Key="PrimaryDark">#AE5000</Color>
+            <Color x:Key="Accent">#96d1ff</Color>
+            <Color x:Key="LightBackgroundColor">#FAFAFA</Color>
+            <Color x:Key="DarkBackgroundColor">#C0C0C0</Color>
+            <Color x:Key="MediumGrayTextColor">#4d4d4d</Color>
+            <Color x:Key="LightTextColor">#999999</Color>
+            <Color x:Key="BackgroundColor">White</Color>
+
+            <OnPlatform
+                x:Key="CardPadding"
+                x:TypeArguments="Thickness"
+                Android="8,5"
+                WinPhone="0,0,0,16"
+                iOS="5,0,5,16" />
+
+            <OnPlatform
+                x:Key="CardSpacing"
+                x:TypeArguments="x:Double"
+                Android="16"
+                WinPhone="0"
+                iOS="0" />
+
+            <OnPlatform
+                x:Key="Divider"
+                x:TypeArguments="Color"
+                Android="#ECECEC"
+                WinPhone="#C8C7CC"
+                iOS="#C8C7CC" />
+
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="BarTextColor" Value="White" />
+            </Style>
+
+            <!--  GLOBAL EXPLICIT STYLES  -->
+            <Style x:Key="PageBaseStyle" TargetType="Page">
+                <Setter Property="BackgroundColor" Value="{StaticResource BackgroundColor}" />
+            </Style>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

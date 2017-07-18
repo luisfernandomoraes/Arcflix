@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Arcflix.Views.Saved.SavedShowDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding SaveShowCommand}"
+            Icon="{Binding ToolBarItemIcon, Mode=TwoWay}"
+            Text="Save Show" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="8" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="8" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="4*" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+
+            <Image
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="7"
+                Aspect="Fill"
+                Opacity="0.75"
+                Source="{Binding ShowDetail.Backdrop, StringFormat='https://image.tmdb.org/t/p/w780{0:N}'}" />
+            <Image
+                Grid.Row="1"
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                Aspect="AspectFill"
+                HorizontalOptions="FillAndExpand"
+                Source="{Binding ShowDetail.Poster, StringFormat='https://image.tmdb.org/t/p/w500{0:N}'}"
+                VerticalOptions="FillAndExpand" />
+            <Label
+                Grid.Row="2"
+                Grid.RowSpan="2"
+                Grid.Column="2"
+                Grid.ColumnSpan="3"
+                FontSize="Medium"
+                HorizontalOptions="Start"
+                HorizontalTextAlignment="Start"
+                LineBreakMode="WordWrap"
+                Text="{Binding ShowDetail.Name}"
+                TextColor="#E06A00"
+                VerticalOptions="FillAndExpand" />
+            <StackLayout
+                Grid.Row="2"
+                Grid.Column="5"
+                Spacing="1">
+                <Image
+                    Aspect="AspectFit"
+                    HorizontalOptions="Center"
+                    Source="ic_star_black_18dp.png"
+                    VerticalOptions="Center" />
+                <Label
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding ShowDetail.VoteAverage}" />
+            </StackLayout>
+
+            <StackLayout
+                Grid.Row="3"
+                Grid.Column="1"
+                Grid.ColumnSpan="5"
+                Spacing="1">
+                <Label
+                    Margin="0,25,0,0"
+                    FontAttributes="Bold"
+                    FontSize="Small"
+                    HorizontalOptions="StartAndExpand"
+                    HorizontalTextAlignment="Start"
+                    Text="{Binding ShowDetail.FirstAirDate, StringFormat='First air date: {0:dd/MM/yyyy}'}"
+                    VerticalOptions="StartAndExpand" />
+                <Label
+                    FontAttributes="Italic"
+                    FontSize="12"
+                    HorizontalOptions="FillAndExpand"
+                    Text="{Binding Genders, Mode=TwoWay}"
+                    VerticalOptions="FillAndExpand" />
+            </StackLayout>
+
+
+
+            <StackLayout
+                Grid.Row="4"
+                Grid.RowSpan="3"
+                Grid.Column="1"
+                Grid.ColumnSpan="5"
+                VerticalOptions="FillAndExpand">
+                <ScrollView>
+                    <Label
+                        HorizontalOptions="FillAndExpand"
+                        Text="{Binding ShowDetail.Overview}"
+                        VerticalOptions="FillAndExpand" />
+                </ScrollView>
+            </StackLayout>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

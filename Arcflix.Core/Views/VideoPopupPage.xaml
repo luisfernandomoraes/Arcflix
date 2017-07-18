@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    x:Class="Arcflix.Views.VideoPopupPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:videoPlayer="clr-namespace:Octane.Xam.VideoPlayer;assembly=Octane.Xam.VideoPlayer">
+    <Frame
+        Padding="0"
+        BackgroundColor="White"
+        HeightRequest="300"
+        HorizontalOptions="Center"
+        VerticalOptions="Center"
+        WidthRequest="600">
+        <StackLayout>
+            <videoPlayer:VideoPlayer
+                x:Name="VideoPlayer"
+                AutoPlay="True"
+                DisplayControls="True"
+                FillMode="ResizeAspect"
+                HeightRequest="200"
+                HorizontalOptions="FillAndExpand"
+                Source="{Binding YoutubeSource}" />
+        </StackLayout>
+    </Frame>
+</pages:PopupPage>
