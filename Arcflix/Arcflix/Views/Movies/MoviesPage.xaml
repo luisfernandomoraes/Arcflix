@@ -74,10 +74,6 @@
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
 
-                                        <Label
-                                            x:Name="lblId"
-                                            IsVisible="False"
-                                            Text="{Binding Id}" />
                                         <Image
                                             Grid.Row="0"
                                             Grid.RowSpan="4"

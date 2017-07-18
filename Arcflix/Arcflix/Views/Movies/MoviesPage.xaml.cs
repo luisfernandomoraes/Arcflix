@@ -11,13 +11,13 @@ namespace Arcflix.Views.Movies
     {
         MoviesViewModel _viewModel;
         public SearchBar SearchBarMovies => searchBarMovies;
-
+        public ListView MoviesListView => ItemsListView;
         public MoviesPage()
         {
             InitializeComponent();
 
             BindingContext = _viewModel = new MoviesViewModel(this);
-            
+
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
@@ -42,10 +42,13 @@ namespace Arcflix.Views.Movies
 
         private async void ItemsListView_OnItemAppearing(object sender, ItemVisibilityEventArgs e)
         {
-            var items = this.ItemsListView.ItemsSource as IList;
-            if (items != null && e.Item == _viewModel.Movies[items.Count - 1] && string.IsNullOrEmpty(_viewModel.Filter))
+
+            var items = ItemsListView.ItemsSource as IList;
+            if (items != null && e.Item == _viewModel.Movies[items.Count - 1])
             {
-                await _viewModel.LoadMore();
+                if (_viewModel.IsVisibleSearchBar)
+                    await _viewModel.LoadMoreSearchResults();
+                else await _viewModel.LoadMore();
             }
         }
     }

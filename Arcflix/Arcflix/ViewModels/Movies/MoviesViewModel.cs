@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -19,17 +20,20 @@ namespace Arcflix.ViewModels.Movies
         #region Fields
 
         private int _pageIndex;
+        private int _pageIndexSearch;
         private bool _isVisibleSearchBar;
         private readonly MoviesPage _moviesPage;
         private string _filter;
         private IKeyboardInteractions _keyboardInteractions;
         private ObservableRangeCollection<MovieModel> _movies;
+        private ObservableRangeCollection<MovieModel> _moviesBackup;
+
 
         #endregion
 
         #region Commands
         public ICommand RequestSearchCommand => new Command(RequestSearch);
-        private void RequestSearch(object obj)
+        private async void RequestSearch(object obj)
         {
             try
             {
@@ -37,10 +41,15 @@ namespace Arcflix.ViewModels.Movies
                 if (!IsVisibleSearchBar)
                 {
                     Filter = string.Empty;
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
 #pragma warning disable 618
-                    Device.OnPlatform(Android: () => _keyboardInteractions.HideKeyboard());
+                        Device.OnPlatform(Android: () => _keyboardInteractions.HideKeyboard());
 #pragma warning restore 618
-                    _moviesPage.SearchBarMovies.Unfocus();
+                        _moviesPage.SearchBarMovies.Unfocus();
+                    });
+                    Movies.ReplaceRange(MoviesBackup);
+
                 }
                 else
                 {
@@ -54,49 +63,46 @@ namespace Arcflix.ViewModels.Movies
             }
 
         }
-        public ICommand FilterMoviesCommand => new Command(async () => await FilterMoviesAsync());
+        public ICommand FilterMoviesCommand => new Command(FilterMoviesAsync);
 
-        private async Task FilterMoviesAsync()
+        private async void FilterMoviesAsync()
         {
-            Device.BeginInvokeOnMainThread(async () =>
-                    {
-                        try
-                        {
 
-                            IsBusy = true;
-                            if (string.IsNullOrEmpty(Filter) && IsVisibleSearchBar)
-                            {
+            try
+            {
+
+                IsBusy = true;
+                if (string.IsNullOrEmpty(Filter) && IsVisibleSearchBar)
+                {
 #pragma warning disable 618
-                                Device.OnPlatform(Android: () => _keyboardInteractions.HideKeyboard());
+                    Device.BeginInvokeOnMainThread(() =>
+                        {
+                            Device.OnPlatform(Android: () => _keyboardInteractions.HideKeyboard());
+                            _moviesPage.SearchBarMovies.Unfocus();
+                        });
 #pragma warning restore 618
-                                _moviesPage.SearchBarMovies.Unfocus();
-                                var items = MoviesBackup;
-                                Movies.ReplaceRange(items);
-                                Filter = string.Empty;
-                                IsVisibleSearchBar = false;
-                            }
-                            else
-                            {
-                                List<MovieModel> filteredMovies;
-                                if (MoviesBackup.Count != 0)
-                                    filteredMovies = MoviesBackup.Where(x => x.Title.ToLower()
-                                        .Contains(Filter.ToLower())).ToList();
-                                else
-                                    filteredMovies = MovieModel.MovieListApiToMovieModelList(await MovieDataStore.GetSearchResult(Filter)).ToList();
+                    await ExecuteLoadItemsCommand();
+                    Filter = string.Empty;
+                    IsVisibleSearchBar = false;
+                }
+                else
+                {
+                    var filteredMovies = MovieModel.MovieListApiToMovieModelList(await MovieDataStore.GetSearchResult(Filter)).ToList();
+                    Movies.ReplaceRange(filteredMovies);
 
-                                Movies.ReplaceRange(filteredMovies);
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                            Debug.WriteLine(e.ToString());
-                            await ExecuteLoadItemsCommand();
-                        }
-                        finally
-                        {
-                            IsBusy = false;
-                        }
-                    });
+                    Device.BeginInvokeOnMainThread(()=>_moviesPage.MoviesListView.ScrollTo(_moviesPage.MoviesListView.ItemsSource.Cast<object>().First(), ScrollToPosition.Start, false));
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+                await ExecuteLoadItemsCommand();
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+
         }
 
         public ICommand LoadItemsCommand => new Command(async () => await ExecuteLoadItemsCommand());
@@ -110,6 +116,8 @@ namespace Arcflix.ViewModels.Movies
             try
             {
                 Movies.Clear();
+                MoviesBackup.Clear();
+
                 _pageIndex = 1;
                 var items = await MovieDataStore.GetItemsAsync(true);
                 var movies = MovieModel.MovieListApiToMovieModelList(items);
@@ -117,10 +125,9 @@ namespace Arcflix.ViewModels.Movies
                 {
                     movieModel.IsAdded = MovieDetailViewModel.IsMovieSaved(movieModel.IDApi);
                 }
-                //if (MoviesBackup.Count == 0)
-                //    MoviesBackup.AddRange(movies);
-                Movies.ReplaceRange(movies);
-                Filter = string.Empty;
+
+                MoviesBackup.AddRange(movies);
+                Movies.AddRange(movies);
                 IsVisibleSearchBar = false;
             }
             catch (Exception ex)
@@ -149,8 +156,11 @@ namespace Arcflix.ViewModels.Movies
             set => SetProperty(ref _movies, value);
         }
 
-        public List<MovieModel> MoviesBackup { get; set; }
-
+        public ObservableRangeCollection<MovieModel> MoviesBackup
+        {
+            get => _moviesBackup;
+            set => SetProperty(ref _moviesBackup, value);
+        }
         public bool IsVisibleSearchBar
         {
             get => _isVisibleSearchBar;
@@ -163,6 +173,9 @@ namespace Arcflix.ViewModels.Movies
             {
                 if (value == _filter) return;
                 _filter = value;
+                OnPropertyChanged();
+                if (string.IsNullOrEmpty(value)) return;
+                _pageIndexSearch = 0;
                 Task.Run(() => FilterMoviesAsync());
             }
         }
@@ -174,7 +187,7 @@ namespace Arcflix.ViewModels.Movies
         {
             Title = "Upcoming Movies";
             Movies = new ObservableRangeCollection<MovieModel>();
-            MoviesBackup = new List<MovieModel>();
+            MoviesBackup = new ObservableRangeCollection<MovieModel>();
             _pageIndex = 1;
             _moviesPage = moviesPage;
             _keyboardInteractions = DependencyService.Get<IKeyboardInteractions>();
@@ -206,8 +219,8 @@ namespace Arcflix.ViewModels.Movies
 
         public async Task LoadMoreSearchResults()
         {
-            ++_pageIndex;
-            var itens = await MovieDataStore.GetItemsAsync(true, _pageIndex);
+            ++_pageIndexSearch;
+            var itens = await MovieDataStore.GetSearchResult(Filter, _pageIndexSearch);
             if (itens != null)
             {
                 var enumerable = itens as Movie[] ?? itens.ToArray();
@@ -218,8 +231,8 @@ namespace Arcflix.ViewModels.Movies
                     {
                         movieModel.IsAdded = MovieDetailViewModel.IsMovieSaved(movieModel.IDApi);
                     }
+
                     Movies.AddRange(movies);
-                    MoviesBackup.AddRange(movies);
                 }
             }
         }
