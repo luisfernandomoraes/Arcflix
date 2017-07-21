@@ -1,5 +1,5 @@
 # Arcflix
-Projet to save upcoming movies and popular tv shows
+App to save upcoming movies and popular tv shows
 
 ## Special build instructions:   
 
