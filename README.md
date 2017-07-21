@@ -1,5 +1,5 @@
 # Arcflix
-ArcTouch's code challenge repository.
+Projet to save upcoming movies and popular tv shows
 
 ## Special build instructions:   
 
