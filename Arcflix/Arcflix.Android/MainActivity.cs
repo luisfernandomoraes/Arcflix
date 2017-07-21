@@ -13,6 +13,7 @@ using Plugin.Toasts;
 using Xamarin.Facebook;
 using Xamarin.Forms;
 using Signature = Android.Content.PM.Signature;
+using Xamarin.Facebook.Share.Widget;
 
 namespace Arcflix.Droid
 {
@@ -21,6 +22,8 @@ namespace Arcflix.Droid
     {
         public static MainActivity MainActivityInstance;
         public static ICallbackManager CallbackManager;
+        public static Context AppMainContext;
+        public static ShareDialog shareDialog;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -54,6 +57,13 @@ namespace Arcflix.Droid
 #endif
 
             base.OnCreate(bundle);
+            //Init FacebookSDK with the application context, then init an instance of CallbackManager
+            FacebookSdk.SdkInitialize(this.ApplicationContext);
+
+            CallbackManager = CallbackManagerFactory.Create();
+
+            shareDialog = new Xamarin.Facebook.Share.Widget.ShareDialog(this);
+            AppMainContext = ApplicationContext;
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             Plugin.Iconize.Iconize.With(new Plugin.Iconize.Fonts.FontAwesomeModule());

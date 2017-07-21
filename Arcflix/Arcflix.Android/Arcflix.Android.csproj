@@ -51,6 +51,9 @@
     <Reference Include="Bolts.Tasks, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Bolts.1.4.0.1\lib\MonoAndroid403\Bolts.Tasks.dll</HintPath>
     </Reference>
+    <Reference Include="Facebook">
+      <HintPath>..\..\..\A\M\S\Mobile\App\Components\facebook-sdk-6.2.2\lib\android\Facebook.dll</HintPath>
+    </Reference>
     <Reference Include="FormsPlugin.Iconize, Version=1.0.10.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xam.FormsPlugin.Iconize.1.0.10\lib\MonoAndroid10\FormsPlugin.Iconize.dll</HintPath>
     </Reference>
@@ -203,6 +206,7 @@
     <Compile Include="DB\SQLiteDroid.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="NativeCallsImpl\FacebookPostDroid.cs" />
     <Compile Include="NativeCallsImpl\KeyboardInteractionsDroid.cs" />
     <Compile Include="Renders\CustomSearchBarRender.cs" />
     <Compile Include="Renders\CustomTabbedPageRenderer.cs" />
@@ -306,6 +310,10 @@
       <Project>{1f3a39bc-22b5-458a-ac0c-fdee86203241}</Project>
       <Name>Arcflix</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Libs\Facebook.dll" />
+    <AndroidResource Include="Resources\drawable\facebook.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

@@ -108,14 +108,25 @@
                         VerticalOptions="FillAndExpand" />
                 </ScrollView>
             </StackLayout>
-            <Button
+            <StackLayout
                 Grid.Row="7"
                 Grid.Column="1"
-                Grid.ColumnSpan="5"
-                BackgroundColor="{DynamicResource PrimaryDark}"
-                Command="{Binding WatchTrailerCommand}"
-                Text="Watch trailer"
-                TextColor="White" />
+                Grid.ColumnSpan="5">
+                <Button
+                    BackgroundColor="{DynamicResource PrimaryDark}"
+                    Command="{Binding WatchTrailerCommand}"
+                    Text="Watch trailer"
+                    TextColor="White" />
+                <Image
+                    Margin="5,0,0,0"
+                    HeightRequest="45"
+                    Source="facebook.png"
+                    WidthRequest="45">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PostFacebookCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </StackLayout>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
